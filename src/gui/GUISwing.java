@@ -4,14 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import commands.PutCommand;
-
+import commands.CommandManager;
 
 public class GUISwing
 {
 
   private static void createGUI()
   {
-    PutCommand cmd = new PutCommand();
+    CommandManager cmm = new CommandManager();
+    cmm.executeCommand(new PutCommand());
     JFrame frame = new JFrame("Solitaire Klondike");
     frame.setPreferredSize(new Dimension(500, 500));
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
