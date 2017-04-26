@@ -36,7 +36,7 @@
                 </javac>
                 <jar destfile="build/GUI.jar" basedir="build">
               <manifest>
-                  <attribute name="Main-Class" value="ija.GUISwing"/>
+                  <attribute name="Main-Class" value="gui.GUISwing"/>
               </manifest>
               <fileset dir="lib">
                   <include name="img/**" />
@@ -47,7 +47,7 @@
         <!-- Run the JUnit Tests -->
         <!-- Output is XML, could also be plain-->
         <target name="run" depends="compile" >
-          <java jar="build/GUI.jar" fork="true" spawn="true"/>
+          <java jar="build/GUI.jar" fork="true"/>
         </target>
 
         <target name="main" depends="compile, run">

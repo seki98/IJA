@@ -1,5 +1,5 @@
-package ija.commands;
-import ija.commands.Command;
+package commands;
+import commands.Command;
 
 public interface UndoCommand extends Command{
   public void undo();

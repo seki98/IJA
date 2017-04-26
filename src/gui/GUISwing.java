@@ -1,9 +1,9 @@
-package ija;
+package gui;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import ija.commands.PutCommand;
+import commands.PutCommand;
 
 
 public class GUISwing

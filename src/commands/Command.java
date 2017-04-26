@@ -1,4 +1,4 @@
-package ija.commands;
+package commands;
 
 public interface Command
 {
