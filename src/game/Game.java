@@ -14,7 +14,7 @@ public class Game{
     CardStack workingPack[] = new CardStack[7];
     CardDeck pullPack;
     CardDeck trashPack;
-    CommandManager cmdManager;
+    CommandManager cmdManager = new CommandManager();
 
     CardDeck factoryDeck;
    protected AbstractFactorySolitaire factory;

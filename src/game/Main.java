@@ -10,12 +10,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import commands.PutStackCommand;
+import commands.PullCardCommand;
+import commands.TurnCardPullStackCommand;
 import commands.CommandManager;
+import game.Game;
 
 public class Main {
     public static void main(String[] args) {
 
         game.Game newGame = new Game();
+        newGame.showStacks();
+        newGame.cmdManager.executeCommand(new TurnCardPullStackCommand( newGame.pullPack, newGame.trashPack) );
+        newGame.showStacks();
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createGUI(newGame);
