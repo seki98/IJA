@@ -14,20 +14,31 @@ import commands.PullCardCommand;
 import commands.TurnCardPullStackCommand;
 import commands.CommandManager;
 import game.Game;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
 
         game.Game newGame = new Game();
-        newGame.showStacks();
-        newGame.cmdManager.executeCommand(new TurnCardPullStackCommand( newGame.pullPack, newGame.trashPack) );
-        newGame.showStacks();
+        //newGame.cmdManager.executeCommand(new TurnCardPullStackCommand( newGame.pullPack, newGame.trashPack) );
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createGUI(newGame);
             }
         });
 
+        try
+        {
+            FileOutputStream fileOut =
+                    new FileOutputStream("/tmp/employee.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(newGame);
+            out.close();
+            fileOut.close();
+            System.out.printf("Serialized data is saved in /tmp/employee.ser");
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -1,4 +1,5 @@
 package game;
+import java.io.*;
 import java.util.Random;
 import ija2016.model.board.AbstractFactorySolitaire;
 import ija2016.model.board.FactoryKlondike;
@@ -9,20 +10,20 @@ import ija2016.model.cards.TargetPack;
 import ija2016.model.cards.WorkingPack;
 import commands.CommandManager;
 
-public class Game{
+public class Game implements java.io.Serializable{
     CardDeck targetPack[] = new CardDeck[4];
     CardStack workingPack[] = new CardStack[7];
     CardDeck pullPack;
     CardDeck trashPack;
-    CommandManager cmdManager = new CommandManager();
+    transient CommandManager cmdManager;
 
     CardDeck factoryDeck;
-   protected AbstractFactorySolitaire factory;
+   transient protected AbstractFactorySolitaire factory;
 
    public Game()
    {
        factory = new FactoryKlondike();
-       CommandManager cmdManager = new CommandManager();
+       cmdManager = new CommandManager();
 
        factoryDeck = factory.createCardDeck();
        pullPack = factory.createPullDeck();
@@ -41,7 +42,6 @@ public class Game{
        spreadCardsToWorkingPack();
        spreadCardsToPullPack();
        //showStacks();
-
 
    }
 

@@ -1,6 +1,7 @@
 package ija2016.model.cards;
+import java.io.*;
 
-public interface CardDeck {
+public interface CardDeck extends java.io.Serializable{
 
     Card get();
     Card get(int idx);

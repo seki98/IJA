@@ -1,6 +1,7 @@
 package ija2016.model.cards;
+import java.io.*;
 
-public interface Card {
+public interface Card extends java.io.Serializable{
     public enum Color {
         CLUBS("C"), DIAMONDS("D"), HEARTS("H"), SPADES("S");
 
