@@ -38,4 +38,5 @@ public interface Card {
     int value();
 
     boolean turnFaceUp();
+    boolean turnFaceDown();
 }

@@ -7,12 +7,14 @@ import ija2016.model.cards.CardDeck;
 import ija2016.model.cards.CardStack;
 import ija2016.model.cards.TargetPack;
 import ija2016.model.cards.WorkingPack;
+import commands.CommandManager;
 
 public class Game{
     CardDeck targetPack[] = new CardDeck[4];
     CardStack workingPack[] = new CardStack[7];
     CardDeck pullPack;
     CardDeck trashPack;
+    CommandManager cmdManager;
 
     CardDeck factoryDeck;
    protected AbstractFactorySolitaire factory;
@@ -20,6 +22,7 @@ public class Game{
    public Game()
    {
        factory = new FactoryKlondike();
+       CommandManager cmdManager = new CommandManager();
 
        factoryDeck = factory.createCardDeck();
        pullPack = factory.createPullDeck();
@@ -37,7 +40,7 @@ public class Game{
 
        spreadCardsToWorkingPack();
        spreadCardsToPullPack();
-       showStacks();
+       //showStacks();
 
 
    }
@@ -50,7 +53,7 @@ public class Game{
       //cp = current pack(index)
       //count - number of cards that should be pushed to stack
       //rand - randomly chosen index for random card
-      for (int cp = 0; cp <= 6; cp++)
+      for (int cp = 0; cp < 7; cp++)
       {
           for(int y = 0; y < count; y++)
           {
@@ -60,8 +63,12 @@ public class Game{
                   if(factoryDeck.get(rand) != null)
                       break;
               }
+
               Card c = factoryDeck.get(rand);
               workingPack[cp].forcePut(factory.createCard(c.color(), c.value()));
+              if((1 + y) == count) {
+                  workingPack[cp].get().turnFaceUp();
+              }
               factoryDeck.NullIndex(rand);
           }
           count++;
@@ -74,7 +81,9 @@ public class Game{
       {
          Card c = factoryDeck.get(i);
           if(c != null) {
+              c.turnFaceDown();
               pullPack.forcePut(factory.createCard(c.color(), c.value()));
+
           }
 
       }

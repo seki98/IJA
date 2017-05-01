@@ -33,6 +33,15 @@ public class CardC implements Card {
         }
     }
 
+    public boolean turnFaceDown(){
+        if(this.faceup){
+            this.faceup = false;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
     public boolean similarColorTo(Card card) {
         return card.color().similarColorTo(this.c);
     }

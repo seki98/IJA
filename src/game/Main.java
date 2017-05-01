@@ -9,7 +9,7 @@ import ija2016.model.cards.WorkingPack;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import commands.PutCommand;
+import commands.PutStackCommand;
 import commands.CommandManager;
 
 public class Main {
@@ -42,7 +42,10 @@ public class Main {
             for(int i = 0;;i++) {
                 c = stack.get(i);
                 if (c == null) break;
-                lab1[i] = new JLabel(c.toString());
+                if(c.isTurnedFaceUp())
+                    lab1[i] = new JLabel(c.toString());
+                else
+                    lab1[i] = new JLabel("xxxx");
                 lab1[i].setBounds(50*y, 20 * i, 60*y, 30*i);
                 panel.add(lab1[i]);
             }
@@ -55,7 +58,7 @@ public class Main {
         //        lab1.setBounds(100,100,100,100);
         //    }
         //});
-        //frame.getContentPane().add(panel);
+        frame.getContentPane().add(panel);
 
         frame.pack();
         frame.setVisible(true);
