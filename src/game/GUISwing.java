@@ -19,8 +19,9 @@ public class GUISwing
     panel.setBackground(Color.green);
     panel.setLayout(null);
 
+
     JLabel lab1 = new JLabel("card 1");
-    lab1.setBounds(50, 50, 100, 100); 
+    lab1.setBounds(50, 50, 100, 100);
     lab1.addMouseListener(new MouseAdapter()
     {
         public void mousePressed(MouseEvent arg0)

@@ -37,7 +37,7 @@ public class Game{
 
        spreadCardsToWorkingPack();
        spreadCardsToPullPack();
-       //showStacks();
+       showStacks();
 
 
    }
@@ -97,15 +97,24 @@ public class Game{
   }
   public void showStacks()
   {
+      System.out.println("WORKING PACKS");
       for(int i = 0; i <= 6; i++)
       {
          showStack(workingPack[i] );
       }
+      System.out.println("***END WORKING PACKS");
+      System.out.println("TARGET PACKS");
       for(int i = 0; i <= 3; i++)
       {
           showStack(targetPack[i] );
       }
+      System.out.println("***END TARGET PACKS");
+      System.out.println("PULL PACK");
       showStack(pullPack);
+      System.out.println("***END PULL PACK");
+      System.out.println("TRASH PACK");
+      showStack(trashPack);
+      System.out.println("***END TRASH PACK");
   }
 
 
