@@ -8,4 +8,6 @@ public interface CardDeck {
     Card pop();
     boolean put(Card c);
     int size();
+    boolean NullIndex(int index);
+    boolean forcePut(Card c);
 }

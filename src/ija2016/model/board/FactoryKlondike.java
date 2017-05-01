@@ -46,4 +46,5 @@ public class FactoryKlondike extends AbstractFactorySolitaire {
     public CardStack createWorkingPack(){
         return new WorkingPack();
     }
+    public CardDeck createPullDeck() {return new CardDeckC(52); }
 }

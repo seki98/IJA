@@ -34,9 +34,9 @@
         <target name="compile" depends="clean, makedir">
                 <javac includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}" debug="on">
                 </javac>
-                <jar destfile="build/GUI.jar" basedir="build">
+                <jar destfile="build/Main.jar" basedir="build">
               <manifest>
-                  <attribute name="Main-Class" value="gui.GUISwing"/>
+                  <attribute name="Main-Class" value="game.Main"/>
               </manifest>
               <fileset dir="lib">
                   <include name="img/**" />
@@ -47,7 +47,7 @@
         <!-- Run the JUnit Tests -->
         <!-- Output is XML, could also be plain-->
         <target name="run" depends="compile" >
-          <java jar="build/GUI.jar" fork="true"/>
+          <java jar="build/Main.jar" fork="true"/>
         </target>
 
         <target name="main" depends="compile, run">

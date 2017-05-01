@@ -33,4 +33,6 @@ public abstract class AbstractFactorySolitaire {
      */
     public abstract CardStack createWorkingPack();
 
+    public abstract CardDeck createPullDeck();
+
 }

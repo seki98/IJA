@@ -1,4 +1,4 @@
-package gui;
+package game;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,10 +9,8 @@ import commands.CommandManager;
 public class GUISwing
 {
 
-  private static void createGUI()
+  public static void createGUI()
   {
-    CommandManager cmm = new CommandManager();
-    cmm.executeCommand(new PutCommand());
     JFrame frame = new JFrame("Solitaire Klondike");
     frame.setPreferredSize(new Dimension(500, 500));
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,13 +35,5 @@ public class GUISwing
     frame.setVisible(true);
   }
 
-  public static void main(String [] args)
-  {
-    javax.swing.SwingUtilities.invokeLater(new Runnable() {
-      public void run() 
-      {
-        createGUI();
-      }
-    });
-  }
+
 }

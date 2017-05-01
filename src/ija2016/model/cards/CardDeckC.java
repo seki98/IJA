@@ -69,6 +69,20 @@ public class CardDeckC implements CardDeck {
         }
     }
 
+    public boolean NullIndex(int index)
+    {
+        if(this.deck[index] == null)
+            return false;
+        this.deck[index] = null;
+        return true;
+    }
+    public boolean forcePut(Card c)
+    {
+        this.top++;
+        deck[this.top] = c;
+        return true;
+    }
+
     /**
      * @return Aktuální počet karet v balíčku.
      */

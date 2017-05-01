@@ -17,7 +17,7 @@ public class CommandManager
         }
     }
 
-    public void endo()
+    public void undo()
     {
         if (!commandStack.empty())
         {

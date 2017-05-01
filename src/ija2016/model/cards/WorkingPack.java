@@ -12,7 +12,7 @@ public class WorkingPack extends CardStackC {
 
     @Override
     public boolean put(Card c) {
-        if((!c.color().similarColorTo(this.top_color)) && (c.value() == this.top_card)){
+        if ((!c.color().similarColorTo(this.top_color)) && (c.value() == this.top_card)) {
             this.top_card--;
             this.top_color = c.color();
 
@@ -21,5 +21,12 @@ public class WorkingPack extends CardStackC {
             return true;
         }
         return false;
+    }
+
+    public boolean forcePut(Card c)
+    {
+        this.top++;
+        deck[this.top] = c;
+        return true;
     }
 }
