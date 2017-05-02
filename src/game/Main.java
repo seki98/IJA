@@ -24,8 +24,9 @@ public class Main {
         Game ng = newGame.loadGame();
 
         ng.cmdManager.executeCommand(new TurnCardPullStackCommand( ng.pullPack, ng.trashPack) );
-        ng.showStacks();
+        ng.showHint();
 
+        ng.showStacks();
 
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {

@@ -18,8 +18,10 @@ public class CardStackC extends CardDeckC implements CardStack{
      * @return Uspěšnost akce.
      */
     public boolean put(CardStack stack){
-        if(stack.isEmpty())
+        if(stack.isEmpty()) {
+            System.out.println("well");
             return true;
+        }
         for(int i=0; i<stack.size(); i++){
             if(!this.put(stack.get(i))){
                 return false;

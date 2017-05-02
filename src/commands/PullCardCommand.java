@@ -22,6 +22,11 @@ public class PullCardCommand implements UndoCommand{
     return true;
   }
 
+  public boolean hint()
+  {
+    return true;
+  }
+
   public void undo()
   {
     pullPack.get().turnFaceDown();

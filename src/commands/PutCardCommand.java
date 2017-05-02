@@ -12,7 +12,6 @@ public class PutCardCommand implements UndoCommand{
     this.sourceStack = sourceStack;
     this.targetStack = targetStack;
     this.card = card;
-    System.out.println("PutCommand created");
   }
 
   public boolean execute()
@@ -22,7 +21,16 @@ public class PutCardCommand implements UndoCommand{
     sourceStack.get().turnFaceUp();
     return true;
   }
-  
+
+  public boolean hint()
+  {
+    if(targetStack.put(card))
+    {
+      targetStack.pop();
+      return true;
+    }
+    return false;
+  }
   public void undo()
   {
       Card c = sourceStack.get();

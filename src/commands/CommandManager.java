@@ -19,6 +19,13 @@ public class CommandManager
         return false;
     }
 
+    public boolean hint(Command cmd) {
+        if (cmd.hint())
+            return true;
+        return false;
+    }
+
+
     public void undo()
     {
         if (!commandStack.empty())

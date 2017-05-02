@@ -1,4 +1,5 @@
 package src.game;
+import src.game.Hint;
 import java.io.*;
 import java.util.Random;
 import src.ija2016.model.board.AbstractFactorySolitaire;
@@ -9,11 +10,14 @@ import src.ija2016.model.cards.CardStack;
 import src.ija2016.model.cards.TargetPack;
 import src.ija2016.model.cards.WorkingPack;
 import src.commands.CommandManager;
+import src.commands.PutStackCommand;
+import src.commands.PutCardCommand;
+import src.commands.PutToTargetPackCommand;
 import java.util.*;
 
 public class Game implements java.io.Serializable{
-    CardDeck targetPack[] = new CardDeck[4];
-    CardStack workingPack[] = new CardStack[7];
+    TargetPack targetPack[] = new TargetPack[4];
+    WorkingPack workingPack[] = new WorkingPack[7];
     List<Card> randomCards;
     CardDeck pullPack;
     CardDeck trashPack;
@@ -32,11 +36,11 @@ public class Game implements java.io.Serializable{
 
        int i = 0;
        for (Card.Color curr_col : Card.Color.values()) {
-           targetPack[i++] = factory.createTargetPack(curr_col);
+           targetPack[i++] = (TargetPack)factory.createTargetPack(curr_col);
        }
 
        for (i = 0; i <= 6; i++) {
-           workingPack[i] = factory.createWorkingPack();
+           workingPack[i] = (WorkingPack)factory.createWorkingPack();
        }
 
        randomCards = shuffleCards();
@@ -163,6 +167,45 @@ public class Game implements java.io.Serializable{
       }
       loadedGame.cmdManager = new CommandManager();
       return loadedGame;
+  }
+
+  public Hint showHint()
+  {
+
+      for(WorkingPack src : this.workingPack)
+      {
+          for(TargetPack tar : this.targetPack) {
+              if (this.cmdManager.hint(new PutToTargetPackCommand(src, tar))) {
+                  System.out.println("to target src:" + src.size() + " tar:" + tar.size() + "_______" + src.get() + "_________");
+                  return new Hint(src, tar, src.get());
+              }
+          }
+      }
+
+      for(WorkingPack src : this.workingPack)
+      {
+          for(int i = 0; i < src.size(); i++)
+          {
+             Card c = src.get(i);
+             if(c.isTurnedFaceUp())
+             for(WorkingPack tar : this.workingPack)
+             {
+                 if(this.cmdManager.hint(new PutStackCommand(src, tar, c))) {
+                     System.out.println("src:"+src.size()+" tar:"+tar.size()+"_______"+ c +"_________");
+                     return new Hint(src, tar, c);
+                 }
+             }
+          }
+      }
+      for(WorkingPack tar : this.workingPack)
+      {
+          if(this.cmdManager.hint(new PutCardCommand(this.pullPack, tar, this.pullPack.get()))) {
+              System.out.println("src:" + this.pullPack.size() + " tar:" + tar.size() + "_______" + this.pullPack.get() + "_________");
+              return new Hint(this.pullPack, tar, this.pullPack.get());
+          }
+      }
+    System.out.println("PULL FROM PULL!!!");
+    return new Hint(this.pullPack, null, this.pullPack.get());
   }
 
 

@@ -21,8 +21,13 @@ public class TurnCardPullStackCommand implements UndoCommand{
     c.turnFaceUp();
     return true;
   }
-  
+
+  public boolean hint()
+  {
+    return true;
+  }
   public void undo()
+
   {
     Card c = trashStack.pop();
     pullStack.put(c);
