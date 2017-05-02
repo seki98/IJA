@@ -176,7 +176,7 @@ public class Game implements java.io.Serializable{
       {
           for(TargetPack tar : this.targetPack) {
               if (this.cmdManager.hint(new PutToTargetPackCommand(src, tar))) {
-                  System.out.println("to target src:" + src.size() + " tar:" + tar.size() + "_______" + src.get() + "_________");
+                  //System.out.println("to target src:" + src.size() + " tar:" + tar.size() + "_______" + src.get() + "_________");
                   return new Hint(src, tar, src.get());
               }
           }
@@ -186,7 +186,7 @@ public class Game implements java.io.Serializable{
       {
           CardDeck src = this.trashPack;
           if (this.cmdManager.hint(new PutToTargetPackCommand(src, tar))) {
-              System.out.println("to target src:" + src.size() + " tar:" + tar.size() + "_______" + src.get() + "_________");
+              //System.out.println("to target src:" + src.size() + " tar:" + tar.size() + "_______" + src.get() + "_________");
               return new Hint(src, tar, src.get());
           }
       }
@@ -199,9 +199,9 @@ public class Game implements java.io.Serializable{
              if(c.isTurnedFaceUp())
              for(WorkingPack tar : this.workingPack)
              {
-                 System.out.println("tar was:"+tar.size());
+                 //System.out.println("tar was:"+tar.size());
                  if(this.cmdManager.hint(new PutStackCommand(src, tar, c))) {
-                     System.out.println("src:"+src.size()+" tar:"+tar.size()+"_______"+ c +"_________");
+                     //System.out.println("src:"+src.size()+" tar:"+tar.size()+"_______"+ c +"_________");
                      return new Hint(src, tar, c);
                  }
              }
@@ -211,12 +211,12 @@ public class Game implements java.io.Serializable{
       for(WorkingPack tar : this.workingPack)
       {
           if(this.cmdManager.hint(new PutCardCommand(this.trashPack, tar, this.trashPack.get()))) {
-              System.out.println("src:" + this.trashPack.size() + " tar:" + tar.size() + "_______" + this.trashPack.get() + "_________");
+              //System.out.println("src:" + this.trashPack.size() + " tar:" + tar.size() + "_______" + this.trashPack.get() + "_________");
               return new Hint(this.trashPack, tar, this.trashPack.get());
           }
       }
       //turn card on pullpack
-    System.out.println("PULL FROM PULL!!!");
+    //System.out.println("PULL FROM PULL!!!");
     return new Hint(this.pullPack, null, this.pullPack.get());
   }
 
