@@ -15,14 +15,14 @@ public class TurnCardPullStackCommand implements UndoCommand{
 
   public void execute()
   {
-      Card c =pullStack.pop();
+      Card c = pullStack.pop();
     trashStack.put(c);
     c.turnFaceUp();
   }
   
   public void undo()
   {
-    Card c =trashStack.pop();
+    Card c = trashStack.pop();
     pullStack.put(c);
     c.turnFaceDown();
   }

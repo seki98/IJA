@@ -9,10 +9,12 @@ import ija2016.model.cards.CardStack;
 import ija2016.model.cards.TargetPack;
 import ija2016.model.cards.WorkingPack;
 import commands.CommandManager;
+import java.util.*;
 
 public class Game implements java.io.Serializable{
     CardDeck targetPack[] = new CardDeck[4];
     CardStack workingPack[] = new CardStack[7];
+    List<Card> randomCards;
     CardDeck pullPack;
     CardDeck trashPack;
     transient CommandManager cmdManager;
@@ -20,8 +22,7 @@ public class Game implements java.io.Serializable{
     CardDeck factoryDeck;
    transient protected AbstractFactorySolitaire factory;
 
-   public Game()
-   {
+   public Game() {
        factory = new FactoryKlondike();
        cmdManager = new CommandManager();
 
@@ -34,15 +35,23 @@ public class Game implements java.io.Serializable{
            targetPack[i++] = factory.createTargetPack(curr_col);
        }
 
-       for (i = 0; i <= 6; i++)
-       {
+       for (i = 0; i <= 6; i++) {
            workingPack[i] = factory.createWorkingPack();
        }
 
+       randomCards = shuffleCards();
        spreadCardsToWorkingPack();
        spreadCardsToPullPack();
-       //showStacks();
+   }
 
+   public List<Card> shuffleCards()
+   {
+       List<Card> randomCards = new ArrayList();
+       for (int i = 0; i <= 51; i++) {
+           randomCards.add(factoryDeck.get(i));
+       }
+       Collections.shuffle(randomCards);
+       return randomCards;
    }
 
   public void spreadCardsToWorkingPack()
@@ -57,19 +66,13 @@ public class Game implements java.io.Serializable{
       {
           for(int y = 0; y < count; y++)
           {
-              while(true)
-              {
-                  rand = randomGenerator.nextInt(53);
-                  if(factoryDeck.get(rand) != null)
-                      break;
-              }
-
-              Card c = factoryDeck.get(rand);
+              Card c = randomCards.get(0);
+              System.out.println(c.toString());
               workingPack[cp].forcePut(factory.createCard(c.color(), c.value()));
               if((1 + y) == count) {
                   workingPack[cp].get().turnFaceUp();
               }
-              factoryDeck.NullIndex(rand);
+              randomCards.remove(c);
           }
           count++;
       }
@@ -77,14 +80,14 @@ public class Game implements java.io.Serializable{
 
   public void spreadCardsToPullPack()
   {
-      for(int i = 0; i <= 52; i++)
+      while(true)
       {
-         Card c = factoryDeck.get(i);
-          if(c != null) {
-              c.turnFaceDown();
-              pullPack.forcePut(factory.createCard(c.color(), c.value()));
-
-          }
+          if(randomCards.isEmpty())
+              break;
+         Card c = randomCards.get(0);
+          c.turnFaceDown();
+          pullPack.forcePut(factory.createCard(c.color(), c.value()));
+          randomCards.remove(c);
 
       }
   }
@@ -93,7 +96,7 @@ public class Game implements java.io.Serializable{
   {
       System.out.println("-----------------");
       int i = 0;
-      while(true)
+      for(i = 0; i < stack.size(); i++)
       {
           Card c = stack.get(i);
           if(c != null)
@@ -101,7 +104,6 @@ public class Game implements java.io.Serializable{
           else {
               break;
           }
-          i++;
       }
   }
   public void showStacks()
