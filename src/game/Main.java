@@ -28,15 +28,19 @@ public class Main {
 
 
 
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+        EventQueue.invokeLater(() -> {
+            GUI ex = new GUI();
+            ex.setVisible(true);
+        });
+        /*javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createGUI(ng);
             }
-        });
+        });*/
 
     }
 
-    public static void createGUI(Game game)
+    /* public static void createGUI(Game game)
     {
         JFrame frame = new JFrame("Solitaire Klondike");
         frame.setPreferredSize(new Dimension(500, 500));
@@ -73,5 +77,5 @@ public class Main {
 
         frame.pack();
         frame.setVisible(true);
-    }
+    }*/
 }
