@@ -1,4 +1,4 @@
-package ija2016.model.cards;
+package src.ija2016.model.cards;
 
 public interface CardStack extends CardDeck{
     boolean put(CardStack stack);

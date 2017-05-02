@@ -36,7 +36,7 @@
                 </javac>
                 <jar destfile="build/Main.jar" basedir="build">
               <manifest>
-                  <attribute name="Main-Class" value="game.Main"/>
+                  <attribute name="Main-Class" value="src.game.Main"/>
               </manifest>
               <fileset dir="lib">
                   <include name="img/**" />

@@ -1,27 +1,27 @@
-package game;
+package src.game;
 
-import ija2016.model.cards.Card;
-import ija2016.model.cards.CardDeck;
-import ija2016.model.cards.CardStack;
-import ija2016.model.cards.TargetPack;
-import ija2016.model.cards.WorkingPack;
+import src.ija2016.model.cards.Card;
+import src.ija2016.model.cards.CardDeck;
+import src.ija2016.model.cards.CardStack;
+import src.ija2016.model.cards.TargetPack;
+import src.ija2016.model.cards.WorkingPack;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import commands.PutStackCommand;
-import commands.PullCardCommand;
-import commands.TurnCardPullStackCommand;
-import commands.CommandManager;
-import game.Game;
+import src.commands.PutStackCommand;
+import src.commands.PullCardCommand;
+import src.commands.TurnCardPullStackCommand;
+import src.commands.CommandManager;
+import src.game.Game;
 import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        game.Game newGame = new Game();
+        Game newGame = new Game();
         newGame.saveGame();
-       Game ng = newGame.loadGame();
+        Game ng = newGame.loadGame();
 
         ng.cmdManager.executeCommand(new TurnCardPullStackCommand( ng.pullPack, ng.trashPack) );
         ng.showStacks();

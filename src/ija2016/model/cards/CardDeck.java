@@ -1,4 +1,4 @@
-package ija2016.model.cards;
+package src.ija2016.model.cards;
 import java.io.*;
 
 public interface CardDeck extends java.io.Serializable{
