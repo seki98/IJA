@@ -26,7 +26,7 @@ public class Main {
         ng.cmdManager.executeCommand(new TurnCardPullStackCommand( ng.pullPack, ng.trashPack) );
         ng.showHint();
 
-        ng.showStacks();
+        //ng.showStacks();
 
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -51,7 +51,7 @@ public class Main {
         Card c;
         int y = 0;
         for( CardStack stack : game.workingPack) {
-            for(int i = 0;;i++) {
+            for(int i = 0;i < stack.size();i++) {
 
                 c = stack.get(i);
                 if (c == null) break;
