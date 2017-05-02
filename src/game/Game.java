@@ -125,6 +125,43 @@ public class Game implements java.io.Serializable{
       showStack(trashPack);
       System.out.println("***END TRASH PACK");
   }
+  public void saveGame()
+  {
+
+      try
+      {
+          FileOutputStream fileOut =
+                  new FileOutputStream("/tmp/employee.ser");
+          ObjectOutputStream out = new ObjectOutputStream(fileOut);
+          out.writeObject(this);
+          out.close();
+          fileOut.close();
+          System.out.printf("Serialized data is saved in /tmp/employee.ser");
+      }catch(IOException e) {
+          e.printStackTrace();
+      }
+  }
+  public Game loadGame()
+  {
+
+      Game loadedGame;
+      try {
+          FileInputStream fileIn = new FileInputStream("/tmp/employee.ser");
+          ObjectInputStream in = new ObjectInputStream(fileIn);
+          loadedGame = (Game) in.readObject();
+          in.close();
+          fileIn.close();
+      }catch(IOException i) {
+          i.printStackTrace();
+          return null;
+      }catch(ClassNotFoundException c) {
+          System.out.println("Employee class not found");
+          c.printStackTrace();
+          return null;
+      }
+      loadedGame.cmdManager = new CommandManager();
+      return loadedGame;
+  }
 
 
 

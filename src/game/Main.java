@@ -20,25 +20,19 @@ public class Main {
     public static void main(String[] args) {
 
         game.Game newGame = new Game();
-        //newGame.cmdManager.executeCommand(new TurnCardPullStackCommand( newGame.pullPack, newGame.trashPack) );
+        newGame.saveGame();
+       Game ng = newGame.loadGame();
+
+        ng.cmdManager.executeCommand(new TurnCardPullStackCommand( ng.pullPack, ng.trashPack) );
+        ng.showStacks();
+
+
+
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createGUI(newGame);
+                createGUI(ng);
             }
         });
-
-        try
-        {
-            FileOutputStream fileOut =
-                    new FileOutputStream("/tmp/employee.ser");
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(newGame);
-            out.close();
-            fileOut.close();
-            System.out.printf("Serialized data is saved in /tmp/employee.ser");
-        }catch(IOException e) {
-            e.printStackTrace();
-        }
 
     }
 
