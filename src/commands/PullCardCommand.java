@@ -1,8 +1,8 @@
-package commands;
-import ija2016.model.cards.WorkingPack;
-import ija2016.model.cards.Card;
-import ija2016.model.cards.CardDeck;
-import ija2016.model.cards.CardStack;
+package src.commands;
+import src.ija2016.model.cards.WorkingPack;
+import src.ija2016.model.cards.Card;
+import src.ija2016.model.cards.CardDeck;
+import src.ija2016.model.cards.CardStack;
 
 public class PullCardCommand implements UndoCommand{
   protected CardStack targetStack;

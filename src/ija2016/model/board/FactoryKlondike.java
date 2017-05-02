@@ -1,6 +1,6 @@
-package ija2016.model.board;
+package src.ija2016.model.board;
 
-import ija2016.model.cards.*;
+import src.ija2016.model.cards.*;
 
 public class FactoryKlondike extends AbstractFactorySolitaire {
     /**

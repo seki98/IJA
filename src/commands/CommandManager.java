@@ -1,6 +1,6 @@
-package commands;
-import commands.Command;
-import commands.UndoCommand;
+package src.commands;
+import src.commands.Command;
+import src.commands.UndoCommand;
 import java.util.Stack;
 import java.util.*;
 

@@ -1,6 +1,6 @@
-package commands;
-import ija2016.model.cards.WorkingPack;
-import ija2016.model.cards.Card;
+package src.commands;
+import src.ija2016.model.cards.WorkingPack;
+import src.ija2016.model.cards.Card;
 
 public class PutCardCommand implements UndoCommand{
   protected WorkingPack sourceStack;

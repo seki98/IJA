@@ -1,7 +1,7 @@
-package ija2016.model.board;
-import ija2016.model.cards.Card;
-import ija2016.model.cards.CardDeck;
-import ija2016.model.cards.CardStack;
+package src.ija2016.model.board;
+import src.ija2016.model.cards.Card;
+import src.ija2016.model.cards.CardDeck;
+import src.ija2016.model.cards.CardStack;
 
 public abstract class AbstractFactorySolitaire {
 

@@ -1,4 +1,4 @@
-package ija2016.model.cards;
+package src.ija2016.model.cards;
 
 public class CardDeckC implements CardDeck {
     protected int size;

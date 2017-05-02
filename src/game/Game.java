@@ -1,14 +1,14 @@
-package game;
+package src.game;
 import java.io.*;
 import java.util.Random;
-import ija2016.model.board.AbstractFactorySolitaire;
-import ija2016.model.board.FactoryKlondike;
-import ija2016.model.cards.Card;
-import ija2016.model.cards.CardDeck;
-import ija2016.model.cards.CardStack;
-import ija2016.model.cards.TargetPack;
-import ija2016.model.cards.WorkingPack;
-import commands.CommandManager;
+import src.ija2016.model.board.AbstractFactorySolitaire;
+import src.ija2016.model.board.FactoryKlondike;
+import src.ija2016.model.cards.Card;
+import src.ija2016.model.cards.CardDeck;
+import src.ija2016.model.cards.CardStack;
+import src.ija2016.model.cards.TargetPack;
+import src.ija2016.model.cards.WorkingPack;
+import src.commands.CommandManager;
 import java.util.*;
 
 public class Game implements java.io.Serializable{
