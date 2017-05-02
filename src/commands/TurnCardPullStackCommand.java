@@ -13,11 +13,13 @@ public class TurnCardPullStackCommand implements UndoCommand{
     System.out.println("Turn card created");
   }
 
-  public void execute()
+  public boolean execute()
   {
       Card c = pullStack.pop();
-    trashStack.put(c);
+    if(!trashStack.put(c))
+      return false;
     c.turnFaceUp();
+    return true;
   }
   
   public void undo()

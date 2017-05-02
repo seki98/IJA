@@ -14,10 +14,12 @@ public class PullCardCommand implements UndoCommand{
     System.out.println("PullCard created");
   }
 
-  public void execute()
+  public boolean execute()
   {
-    targetStack.put(pullPack.pop());
+    if(!targetStack.put(pullPack.pop()))
+      return false;
     pullPack.get().turnFaceUp();
+    return true;
   }
 
   public void undo()

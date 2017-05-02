@@ -67,7 +67,7 @@ public class Game implements java.io.Serializable{
           for(int y = 0; y < count; y++)
           {
               Card c = randomCards.get(0);
-              System.out.println(c.toString());
+              //System.out.println(c.toString());
               workingPack[cp].forcePut(factory.createCard(c.color(), c.value()));
               if((1 + y) == count) {
                   workingPack[cp].get().turnFaceUp();
@@ -138,7 +138,7 @@ public class Game implements java.io.Serializable{
           out.writeObject(this);
           out.close();
           fileOut.close();
-          System.out.printf("Serialized data is saved in /tmp/employee.ser");
+          //System.out.printf("Serialized data is saved in /tmp/employee.ser");
       }catch(IOException e) {
           e.printStackTrace();
       }
@@ -157,7 +157,7 @@ public class Game implements java.io.Serializable{
           i.printStackTrace();
           return null;
       }catch(ClassNotFoundException c) {
-          System.out.println("Employee class not found");
+          System.out.println("Game class not found");
           c.printStackTrace();
           return null;
       }

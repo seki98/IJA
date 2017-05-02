@@ -15,11 +15,13 @@ public class PutStackCommand implements UndoCommand{
     System.out.println("PutCommand created");
   }
 
-  public void execute()
+  public boolean execute()
   {
-    targetStack.put(sourceStack.pop(card));
-    Card c = sourceStack.get();
-    c.turnFaceUp();
+   if(!targetStack.put(sourceStack.pop(card)))
+     return false;
+
+    sourceStack.get().turnFaceUp();
+    return true;
   }
   
   public void undo()
