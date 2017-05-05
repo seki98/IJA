@@ -20,7 +20,7 @@ src/commands - classes needed for undo/redo history. These classes wrap all stac
     to load a game from ./saves/
 - ```game.showStacks()```
     to print all stacks to the CLI
-- ```game.showHint()```
+- ```game.showHint(CardDeck src, CardDeck tar, Card c)```
     to receive Hint() object with hint for the next move.
 
 Hint contains these attributes
