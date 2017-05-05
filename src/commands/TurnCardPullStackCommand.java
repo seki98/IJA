@@ -14,21 +14,40 @@ public class TurnCardPullStackCommand implements UndoCommand{
   {
     this.pullStack = pullStack;
     this.trashStack = trashStack;
-    System.out.println("Turn card created");
   }
 
   public boolean execute()
   {
-      Card c = pullStack.pop();
+    //turn packs if pullstack is empty
+    if(pullStack.get() == null)
+      if(trashStack.get() != null)
+        while(true)
+        {
+          if(trashStack.get() == null)
+            break;
+          pullStack.put(trashStack.pop());
+          pullStack.get().turnFaceDown();
+
+        }
+
+    Card c = pullStack.get();
     if(!trashStack.put(c))
       return false;
+    pullStack.pop();
+
+
     c.turnFaceUp();
     return true;
   }
 
   public boolean hint()
   {
-    return true;
+    if(trashStack.put(pullStack.get()))
+        {
+          trashStack.pop();
+          return true;
+        }
+    return false;
   }
   public void undo()
 

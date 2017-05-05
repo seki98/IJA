@@ -13,6 +13,7 @@ import src.commands.CommandManager;
 import src.commands.PutStackCommand;
 import src.commands.PutToTargetPackCommand;
 import src.commands.PullCardCommand;
+import src.commands.TurnCardPullStackCommand;
 import java.util.*;
 
 public class Game implements java.io.Serializable{
