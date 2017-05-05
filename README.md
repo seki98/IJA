@@ -15,9 +15,9 @@ src/commands - classes needed for undo/redo history. These classes wrap all stac
 - ```game.cmdManager.undo()```
     to undo a command
 - ```game.saveGame(String name)```
-    to save a game to ./saves/
+    to save a game to ./saves/$name
 - ```game.loadGame(String name)```
-    to load a game from ./saves/
+    to load a game from ./saves/$name
 - ```game.showStacks()```
     to print all stacks to the CLI
 - ```game.showHint(CardDeck src, CardDeck tar, Card c)```
