@@ -5,18 +5,20 @@ import src.ija2016.model.cards.CardDeck;
 import src.ija2016.model.cards.CardStack;
 
 public class PullCardCommand implements UndoCommand{
-  protected CardStack targetStack;
+  /*
+   * Pull card from top of the Trash pack and place it on some working pack
+   */
+  protected CardStack workingPack;
   protected CardDeck pullPack;
-  public PullCardCommand(CardStack targetStack, CardDeck pullStack)
+  public PullCardCommand(CardStack workingPack, CardDeck pullStack)
   {
-    this.targetStack = targetStack;
+    this.workingPack = workingPack;
     this.pullPack = pullStack;
-    System.out.println("PullCard created");
   }
 
   public boolean execute()
   {
-    if(!targetStack.put(pullPack.pop()))
+    if(!workingPack.put(pullPack.pop()))
       return false;
     pullPack.get().turnFaceUp();
     return true;
@@ -30,7 +32,7 @@ public class PullCardCommand implements UndoCommand{
   public void undo()
   {
     pullPack.get().turnFaceDown();
-      pullPack.put(targetStack.pop());
+      pullPack.put(workingPack.pop());
   }
 
 }
