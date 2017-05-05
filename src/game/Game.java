@@ -11,8 +11,8 @@ import src.ija2016.model.cards.TargetPack;
 import src.ija2016.model.cards.WorkingPack;
 import src.commands.CommandManager;
 import src.commands.PutStackCommand;
-import src.commands.PutCardCommand;
 import src.commands.PutToTargetPackCommand;
+import src.commands.PullCardCommand;
 import java.util.*;
 
 public class Game implements java.io.Serializable{
@@ -211,7 +211,7 @@ public class Game implements java.io.Serializable{
       //pull from pullpack and place somewhere
       for(WorkingPack tar : this.workingPack)
       {
-          if(this.cmdManager.hint(new PutCardCommand(this.trashPack, tar, this.trashPack.get()))) {
+          if(this.cmdManager.hint(new PullCardCommand(tar, this.trashPack))) {
               //System.out.println("src:" + this.trashPack.size() + " tar:" + tar.size() + "_______" + this.trashPack.get() + "_________");
               return new Hint(this.trashPack, tar, this.trashPack.get());
           }
