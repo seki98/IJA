@@ -10,7 +10,7 @@ src/game
 
 src/commands - classes needed for undo/redo history. These classes wrap all stack+cards manipulation.
 # GAME methods
-- game.cmdManager.execute(new SomeCommand(param1, param2));
+- ```game.cmdManager.execute(new SomeCommand(param1, param2));```
     to execute a command
 - game.cmdManager.undo();
     to undo a command
