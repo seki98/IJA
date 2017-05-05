@@ -1,6 +1,10 @@
 # IJA
 VUT FIT IJA 2016/2017
 
+
+[pullStack][trashStack].....[tpack][tpack][tpack][tpack]
+.......[wpack][wpack][wpack][wpack][wpack][wpack][wpack]
+
 src/ija2016... Basic classes
 
 src/game
