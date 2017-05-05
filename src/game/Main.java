@@ -20,16 +20,9 @@ public class Main {
     public static void main(String[] args) {
 
         Game newGame = new Game();
-        newGame.saveGame();
-        Game ng = newGame.loadGame();
-
-        ng.cmdManager.executeCommand(new TurnCardPullStackCommand( ng.pullPack, ng.trashPack) );
-        ng.showStacks();
-
-
 
         EventQueue.invokeLater(() -> {
-            GUI ex = new GUI();
+            GUI ex = new GUI(newGame);
             ex.setVisible(true);
         });
         /*javax.swing.SwingUtilities.invokeLater(new Runnable() {

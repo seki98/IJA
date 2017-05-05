@@ -66,6 +66,16 @@ public class CardC implements Card {
         return this.value;
     }
 
+    public String getFileName()
+    {
+        if (!faceup) return "src/img/xx.png";
+        if (value == 1) return "src/img/" + c.toString().toLowerCase() + "a.png";
+        if (value == 11) return "src/img/j" + c.toString().toLowerCase() + "j.png";
+        if (value == 12) return "src/img/" + c.toString().toLowerCase() + "q.png";
+        if (value == 13) return "src/img/" + c.toString().toLowerCase() + "k.png";
+        return "src/img/" + c.toString().toLowerCase() + value + ".png";
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

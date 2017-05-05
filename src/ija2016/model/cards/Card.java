@@ -38,6 +38,8 @@ public interface Card extends java.io.Serializable{
 
     int value();
 
+    String getFileName();
+
     boolean turnFaceUp();
     boolean turnFaceDown();
 }

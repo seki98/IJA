@@ -14,8 +14,10 @@ hs_err_pid*
 #linux
 *.swp
 /.idea/
-/IJA.iml
 IJA.iml
 build/
 testreport/
 /out/
+lib/
+src/img/originals/
+src/img/resized.zip

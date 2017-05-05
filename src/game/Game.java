@@ -20,9 +20,9 @@ public class Game implements java.io.Serializable{
     transient CommandManager cmdManager;
 
     CardDeck factoryDeck;
-   transient protected AbstractFactorySolitaire factory;
+    transient protected AbstractFactorySolitaire factory;
 
-   public Game() {
+    public Game() {
        factory = new FactoryKlondike();
        cmdManager = new CommandManager();
 
@@ -31,18 +31,18 @@ public class Game implements java.io.Serializable{
        trashPack = factory.createPullDeck();
 
        int i = 0;
-       for (Card.Color curr_col : Card.Color.values()) {
-           targetPack[i++] = factory.createTargetPack(curr_col);
-       }
+        for (Card.Color curr_col : Card.Color.values()) {
+            targetPack[i++] = factory.createTargetPack(curr_col);
+        }
 
-       for (i = 0; i <= 6; i++) {
+        for (i = 0; i <= 6; i++) {
            workingPack[i] = factory.createWorkingPack();
-       }
+        }
 
-       randomCards = shuffleCards();
-       spreadCardsToWorkingPack();
-       spreadCardsToPullPack();
-   }
+        randomCards = shuffleCards();
+        spreadCardsToWorkingPack();
+        spreadCardsToPullPack();
+    }
 
    public List<Card> shuffleCards()
    {
@@ -127,6 +127,7 @@ public class Game implements java.io.Serializable{
       showStack(trashPack);
       System.out.println("***END TRASH PACK");
   }
+
   public void saveGame()
   {
 
