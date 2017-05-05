@@ -9,7 +9,7 @@ src/game
 - GUISwing - unused
 
 src/commands - classes needed for undo/redo history. These classes wrap all stack+cards manipulation.
-# COMMANDS
+# GAME methods
 - use game.cmdManager.execute(new SomeCommand(param1, param2)); to execute a command
 - use game.cmdManager.undo(); to undo a command
 - use game.saveGame(String name) to save a game to ./saves/
@@ -19,10 +19,11 @@ src/commands - classes needed for undo/redo history. These classes wrap all stac
 
 Hint contains these attributes
 
-    CardDeck src = stack from which a card is to be taken
-    CardDeck tar = stack to which a card is to be put
-    Card c = card which is to be selected and moved from src to tar
+- CardDeck src = stack from which a card is to be taken
+- CardDeck tar = stack to which a card is to be put
+- Card c = card which is to be selected and moved from src to tar
 
+# COMMANDS
 - public TurnCardPullStackCommand(CardDeck pullStack,CardDeck trashStack)
 pullStack = Stack from which cards are drawn when no move is possible
 trashStack = Stack where card is placed
