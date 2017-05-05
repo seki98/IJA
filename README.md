@@ -10,17 +10,17 @@ src/game
 
 src/commands - classes needed for undo/redo history. These classes wrap all stack+cards manipulation.
 # GAME methods
-- ```game.cmdManager.execute(new SomeCommand(param1, param2))```
+- ```boolean game.cmdManager.execute(new SomeCommand(param1, param2))```
     to execute a command
-- ```game.cmdManager.undo()```
+- ```void game.cmdManager.undo()```
     to undo a command
-- ```game.saveGame(String name)```
+- ```Game game.saveGame(String name)```
     to save a game to ./saves/$name
-- ```game.loadGame(String name)```
+- ```Game game.loadGame(String name)```
     to load a game from ./saves/$name
-- ```game.showStacks()```
+- ```void game.showStacks()```
     to print all stacks to the CLI
-- ```game.showHint(CardDeck src, CardDeck tar, Card c)```
+- ```Hint game.showHint()```
     to receive Hint() object with hint for the next move.
 
 Hint contains these attributes
