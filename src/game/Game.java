@@ -1,4 +1,5 @@
 package src.game;
+import src.game.Hint;
 import java.io.*;
 import java.util.Random;
 import src.ija2016.model.board.AbstractFactorySolitaire;
@@ -9,11 +10,14 @@ import src.ija2016.model.cards.CardStack;
 import src.ija2016.model.cards.TargetPack;
 import src.ija2016.model.cards.WorkingPack;
 import src.commands.CommandManager;
+import src.commands.PutStackCommand;
+import src.commands.PutCardCommand;
+import src.commands.PutToTargetPackCommand;
 import java.util.*;
 
 public class Game implements java.io.Serializable{
-    CardDeck targetPack[] = new CardDeck[4];
-    CardStack workingPack[] = new CardStack[7];
+    TargetPack targetPack[] = new TargetPack[4];
+    WorkingPack workingPack[] = new WorkingPack[7];
     List<Card> randomCards;
     CardDeck pullPack;
     CardDeck trashPack;
@@ -31,13 +35,13 @@ public class Game implements java.io.Serializable{
        trashPack = factory.createPullDeck();
 
        int i = 0;
-        for (Card.Color curr_col : Card.Color.values()) {
-            targetPack[i++] = factory.createTargetPack(curr_col);
-        }
+       for (Card.Color curr_col : Card.Color.values()) {
+           targetPack[i++] = (TargetPack)factory.createTargetPack(curr_col);
+       }
 
-        for (i = 0; i <= 6; i++) {
-           workingPack[i] = factory.createWorkingPack();
-        }
+       for (i = 0; i <= 6; i++) {
+           workingPack[i] = (WorkingPack)factory.createWorkingPack();
+       }
 
         randomCards = shuffleCards();
         spreadCardsToWorkingPack();
@@ -67,7 +71,7 @@ public class Game implements java.io.Serializable{
           for(int y = 0; y < count; y++)
           {
               Card c = randomCards.get(0);
-              System.out.println(c.toString());
+              //System.out.println(c.toString());
               workingPack[cp].forcePut(factory.createCard(c.color(), c.value()));
               if((1 + y) == count) {
                   workingPack[cp].get().turnFaceUp();
@@ -94,13 +98,13 @@ public class Game implements java.io.Serializable{
 
   public void showStack (CardDeck stack)
   {
-      System.out.println("-----------------");
-      int i = 0;
-      for(i = 0; i < stack.size(); i++)
+      System.out.println("--------"+stack.size()+"---------");
+
+      for(int i = 0; i < stack.size(); i++)
       {
           Card c = stack.get(i);
           if(c != null)
-              System.out.println(c.toString());
+              System.out.println(c);
           else {
               break;
           }
@@ -139,7 +143,7 @@ public class Game implements java.io.Serializable{
           out.writeObject(this);
           out.close();
           fileOut.close();
-          System.out.printf("Serialized data is saved in /tmp/employee.ser");
+          //System.out.printf("Serialized data is saved in /tmp/employee.ser");
       }catch(IOException e) {
           e.printStackTrace();
       }
@@ -158,12 +162,63 @@ public class Game implements java.io.Serializable{
           i.printStackTrace();
           return null;
       }catch(ClassNotFoundException c) {
-          System.out.println("Employee class not found");
+          System.out.println("Game class not found");
           c.printStackTrace();
           return null;
       }
       loadedGame.cmdManager = new CommandManager();
       return loadedGame;
+  }
+
+  public Hint showHint()
+  {
+        //try to put to target pack
+      for(WorkingPack src : this.workingPack)
+      {
+          for(TargetPack tar : this.targetPack) {
+              if (this.cmdManager.hint(new PutToTargetPackCommand(src, tar))) {
+                  //System.out.println("to target src:" + src.size() + " tar:" + tar.size() + "_______" + src.get() + "_________");
+                  return new Hint(src, tar, src.get());
+              }
+          }
+      }
+      //pull from pullpack and place to targetPack
+      for(TargetPack tar : this.targetPack)
+      {
+          CardDeck src = this.trashPack;
+          if (this.cmdManager.hint(new PutToTargetPackCommand(src, tar))) {
+              //System.out.println("to target src:" + src.size() + " tar:" + tar.size() + "_______" + src.get() + "_________");
+              return new Hint(src, tar, src.get());
+          }
+      }
+        //move stack from working pack ot another working pack
+      for(WorkingPack src : this.workingPack)
+      {
+          for(int i = 0; i < src.size(); i++)
+          {
+             Card c = src.get(i);
+             if(c.isTurnedFaceUp())
+             for(WorkingPack tar : this.workingPack)
+             {
+                 //System.out.println("tar was:"+tar.size());
+                 if(this.cmdManager.hint(new PutStackCommand(src, tar, c))) {
+                     //System.out.println("src:"+src.size()+" tar:"+tar.size()+"_______"+ c +"_________");
+                     return new Hint(src, tar, c);
+                 }
+             }
+          }
+      }
+      //pull from pullpack and place somewhere
+      for(WorkingPack tar : this.workingPack)
+      {
+          if(this.cmdManager.hint(new PutCardCommand(this.trashPack, tar, this.trashPack.get()))) {
+              //System.out.println("src:" + this.trashPack.size() + " tar:" + tar.size() + "_______" + this.trashPack.get() + "_________");
+              return new Hint(this.trashPack, tar, this.trashPack.get());
+          }
+      }
+      //turn card on pullpack
+    //System.out.println("PULL FROM PULL!!!");
+    return new Hint(this.pullPack, null, this.pullPack.get());
   }
 
 

@@ -8,14 +8,23 @@ public class CommandManager
 {
     private Stack commandStack = new Stack();
 
-    public void executeCommand(Command cmd)
+    public boolean executeCommand(Command cmd)
     {
-        cmd.execute();
         if (cmd instanceof UndoCommand)
         {
             commandStack.push(cmd);
         }
+        if(cmd.execute())
+            return true;
+        return false;
     }
+
+    public boolean hint(Command cmd) {
+        if (cmd.hint())
+            return true;
+        return false;
+    }
+
 
     public void undo()
     {

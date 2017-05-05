@@ -27,7 +27,7 @@ public class Main {
         });
         /*javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createGUI(ng);
+                createGUI(newGame);
             }
         });*/
 
@@ -47,14 +47,15 @@ public class Main {
         Card c;
         int y = 0;
         for( CardStack stack : game.workingPack) {
-            for(int i = 0;;i++) {
+            for(int i = 0;i < stack.size();i++) {
+
                 c = stack.get(i);
                 if (c == null) break;
                 if(c.isTurnedFaceUp())
                     lab1[i] = new JLabel(c.toString());
                 else
                     lab1[i] = new JLabel("xxxx");
-                lab1[i].setBounds(50*y, 20 * i, 60*y, 30*i);
+                lab1[i].setBounds(60*y, 25 * i, 60, 30);
                 panel.add(lab1[i]);
             }
             y++;
