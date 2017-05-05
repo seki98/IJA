@@ -31,19 +31,23 @@ Hint contains these attributes
 
 # COMMANDS
 - public TurnCardPullStackCommand(CardDeck pullStack,CardDeck trashStack)
+
 pullStack = Stack from which cards are drawn when no move is possible
 trashStack = Stack where card is placed
 
 - public PutStackCommand(WorkingPack sourceStack, WorkingPack targetStack, Card card)
+
 sourceStack = Stack from which stack is moved to 'targetStack'. Only cards from "card" up to top are moved
 targetStack = Stack where the mentioned stack is put
 card = explained above
 
 - public PullCardCommand(WorkingPack workingPack, CardDeck trashStack)
+
 workingPack = stack to which the  card from trashStack will be placed
 trashStack = top card from here is used
 
 - public PutToTargetPackCommand(CardDeck sourceStack,TargetPack targetStack)
+
 sourceStack = the stack from which top card is moved to targetStack
 targetStack = one of the targetStacks
 
