@@ -10,17 +10,17 @@ src/game
 
 src/commands - classes needed for undo/redo history. These classes wrap all stack+cards manipulation.
 # GAME methods
-- ```game.cmdManager.execute(new SomeCommand(param1, param2));```
+- ```game.cmdManager.execute(new SomeCommand(param1, param2))```
     to execute a command
-- game.cmdManager.undo();
+- ```game.cmdManager.undo()```
     to undo a command
-- game.saveGame(String name)
+- ```game.saveGame(String name)```
     to save a game to ./saves/
-- game.loadGame(String name)
+- ```game.loadGame(String name)```
     to load a game from ./saves/
-- game.showStacks()
+- ```game.showStacks()```
     to print all stacks to the CLI
-- game.showHint();
+- ```game.showHint()```
     to receive Hint() object with hint for the next move.
 
 Hint contains these attributes
@@ -46,6 +46,5 @@ trashStack = top card from here is used
 - public PutToTargetPackCommand(CardDeck sourceStack,TargetPack targetStack)
 sourceStack = the stack from which top card is moved to targetStack
 targetStack = one of the targetStacks
-
 
 run 'ant run' in the directory where build.xml is located. Gui from src/game/Main.java is loaded.
