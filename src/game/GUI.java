@@ -25,6 +25,7 @@ public class GUI extends JFrame {
 
     // Cards
     private JLabel WorkingStack[] = new JLabel[52];
+    private JLabel WorkingStackBack[] = new JLabel[7];
     private JLabel HelpStackFrom = new JLabel();
     private JLabel HelpStackTo = new JLabel();
     private JLabel TargetC = new JLabel();
@@ -32,9 +33,12 @@ public class GUI extends JFrame {
     private JLabel TargetH = new JLabel();
     private JLabel TargetS = new JLabel();
 
+    // Command icons
+    private JLabel iHelp = new JLabel();
+
     private void makeMyNiceGUI(){
         setTitle("Solitaire Klondike");
-        setPreferredSize(new Dimension(860,725));
+        setPreferredSize(new Dimension(860,665));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
@@ -45,15 +49,15 @@ public class GUI extends JFrame {
         add(lpane, BorderLayout.CENTER);
         lpane.setBounds(0, 0, this.getWidth(), this.getHeight());
 
-        HelpStackFrom = new JLabel(new ImageIcon("src/img/xx.png"));
-        HelpStackTo = new JLabel(new ImageIcon("src/img/xx.png"));
-        TargetC = new JLabel(new ImageIcon("src/img/xx.png"));
-        TargetD = new JLabel(new ImageIcon("src/img/xx.png"));
-        TargetH = new JLabel(new ImageIcon("src/img/xx.png"));
-        TargetS = new JLabel(new ImageIcon("src/img/xx.png"));
-
-        backgroundImage.setBounds(0,0,860,725);
+        backgroundImage.setBounds(0,0,860,665);
         lpane.add(backgroundImage, 0, 0);
+
+        HelpStackFrom = new JLabel(new ImageIcon("src/img/cards/xx.png"));
+        HelpStackTo = new JLabel(new ImageIcon("src/img/cards/empty_workingpack.png"));
+        TargetC = new JLabel(new ImageIcon("src/img/cards/empty_targetpack.png"));
+        TargetD = new JLabel(new ImageIcon("src/img/cards/empty_targetpack.png"));
+        TargetH = new JLabel(new ImageIcon("src/img/cards/empty_targetpack.png"));
+        TargetS = new JLabel(new ImageIcon("src/img/cards/empty_targetpack.png"));
 
         HelpStackFrom.setBounds(20, 20, 100, 145);
         lpane.add(HelpStackFrom, 1, 0);
@@ -73,6 +77,12 @@ public class GUI extends JFrame {
         TargetS.setBounds(740, 20, 100, 145);
         lpane.add(TargetS, 1, 0);
 
+        for(int i = 0; i<7;i++) {
+            WorkingStackBack[i] = new JLabel(new ImageIcon("src/img/cards/empty_workingpack.png"));
+            WorkingStackBack[i].setBounds(20+(120*i), 200, 100, 145);
+            lpane.add(WorkingStackBack[i], 1, 0);
+        }
+
         Card c;
         int y = 0;
         for(CardStack stack : this.mygame.workingPack) {
@@ -81,11 +91,15 @@ public class GUI extends JFrame {
                 if (c == null) break;
 
                 WorkingStack[i] = new JLabel(new ImageIcon(c.getFileName()));
-                WorkingStack[i].setBounds(20+(120*y), 200 + (30 * i), 100, 145);
-                lpane.add(WorkingStack[i], i+1, 0);
+                WorkingStack[i].setBounds(20+(120*y), 200 + (25 * i), 100, 145);
+                lpane.add(WorkingStack[i], i+2, 0);
             }
             y++;
         }
+
+        iHelp = new JLabel(new ImageIcon("src/img/help-me.png"));
+        iHelp.setBounds(260, 90, 96, 96);
+        lpane.add(iHelp, 1, 0);
 
         pack();
         setVisible(true);
