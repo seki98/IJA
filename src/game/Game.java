@@ -13,6 +13,7 @@ import src.commands.CommandManager;
 import src.commands.PutStackCommand;
 import src.commands.PutToTargetPackCommand;
 import src.commands.PullCardCommand;
+import src.commands.TurnCardPullStackCommand;
 import java.util.*;
 
 public class Game implements java.io.Serializable{
@@ -132,13 +133,13 @@ public class Game implements java.io.Serializable{
       System.out.println("***END TRASH PACK");
   }
 
-  public void saveGame()
+  public void saveGame(String name)
   {
 
       try
       {
           FileOutputStream fileOut =
-                  new FileOutputStream("/tmp/employee.ser");
+                  new FileOutputStream("./saves/" + name);
           ObjectOutputStream out = new ObjectOutputStream(fileOut);
           out.writeObject(this);
           out.close();
@@ -148,12 +149,12 @@ public class Game implements java.io.Serializable{
           e.printStackTrace();
       }
   }
-  public Game loadGame()
+  public Game loadGame(String name)
   {
 
       Game loadedGame;
       try {
-          FileInputStream fileIn = new FileInputStream("/tmp/employee.ser");
+          FileInputStream fileIn = new FileInputStream("./saves/" + name);
           ObjectInputStream in = new ObjectInputStream(fileIn);
           loadedGame = (Game) in.readObject();
           in.close();

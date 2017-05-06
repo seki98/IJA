@@ -21,13 +21,9 @@ public class PutStackCommand implements UndoCommand{
 
   public boolean hint()
   {
-      //System.out.println(targetStack.size());
     if(targetStack.put(card))
     {
-        //System.out.println(targetStack.size());
         targetStack.pop();
-        //System.out.println(targetStack.size());
-        System.out.println("YES");
         return true;
     }
     return false;

@@ -8,31 +8,38 @@ public class PullCardCommand implements UndoCommand{
   /*
    * Pull card from top of the Trash pack and place it on some working pack
    */
-  protected CardStack workingPack;
-  protected CardDeck pullPack;
-  public PullCardCommand(CardStack workingPack, CardDeck pullStack)
+  protected WorkingPack workingPack;
+  protected CardDeck pullStack;
+  protected CardDeck trashStack;
+  public PullCardCommand(WorkingPack workingPack, CardDeck trashStack)
   {
-    this.workingPack = workingPack;
-    this.pullPack = pullStack;
+    this.workingPack = (WorkingPack)workingPack;
+    this.trashStack = trashStack;
+    this.pullStack = pullStack;
   }
 
   public boolean execute()
   {
-    if(!workingPack.put(pullPack.pop()))
+    if(!workingPack.put(trashStack.get()))
       return false;
-    pullPack.get().turnFaceUp();
+    trashStack.pop();
     return true;
   }
 
   public boolean hint()
   {
-    return true;
+    if(workingPack.put(trashStack.get()))
+        {
+          trashStack.put(workingPack.pop());
+          return true;
+        }
+    return false;
   }
 
   public void undo()
   {
-    pullPack.get().turnFaceDown();
-      pullPack.put(workingPack.pop());
+    trashStack.get().turnFaceDown();
+      trashStack.put(workingPack.pop());
   }
 
 }
