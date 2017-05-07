@@ -20,6 +20,8 @@ public class PullCardCommand implements UndoCommand{
 
   public boolean execute()
   {
+    if(trashStack.get() == null)
+      return false;
     if(!workingPack.put(trashStack.get()))
       return false;
     trashStack.pop();
@@ -28,6 +30,8 @@ public class PullCardCommand implements UndoCommand{
 
   public boolean hint()
   {
+    if(trashStack.get() == null)
+      return false;
     if(workingPack.put(trashStack.get()))
         {
           trashStack.put(workingPack.pop());

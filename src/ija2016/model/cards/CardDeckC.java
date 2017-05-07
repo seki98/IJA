@@ -16,6 +16,8 @@ public class CardDeckC implements CardDeck {
      * @return Karta z vrcholu balíčku
      */
     public Card get(){
+        if(this.top < 0)
+            return null;
         return this.deck[this.top];
     }
 

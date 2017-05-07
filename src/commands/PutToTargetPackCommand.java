@@ -19,17 +19,20 @@ public class PutToTargetPackCommand implements UndoCommand{
 
   public boolean execute()
   {
+    if(sourceStack.get() == null)
+      return false;
     if(targetStack.put(sourceStack.get()))
     {
-      sourceStack.pop();
-      return true;
+      if(sourceStack.size() >= 1)
+        sourceStack.get().turnFaceUp();
+          sourceStack.pop();
     }
-    if(sourceStack.size() >= 1)
-      sourceStack.get().turnFaceUp();
     return true;
   }
   public boolean hint()
   {
+    if(sourceStack.get() == null)
+      return false;
     if(targetStack.put(sourceStack.get())) {
       targetStack.pop();
       return true;

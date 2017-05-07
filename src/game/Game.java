@@ -15,6 +15,7 @@ import src.commands.PutToTargetPackCommand;
 import src.commands.PullCardCommand;
 import src.commands.TurnCardPullStackCommand;
 import java.util.*;
+import src.game.Hint;
 
 public class Game implements java.io.Serializable{
     TargetPack targetPack[] = new TargetPack[4];
@@ -47,6 +48,21 @@ public class Game implements java.io.Serializable{
         randomCards = shuffleCards();
         spreadCardsToWorkingPack();
         spreadCardsToPullPack();
+
+        Hint h;
+        for(int y = 0; y > 55; y++)
+        {
+            h = showHint();
+
+            if(h.cmd == 1)
+                cmdManager.executeCommand(new PullCardCommand((WorkingPack)h.src, (CardDeck)h.tar));
+            if(h.cmd == 2)
+                cmdManager.executeCommand(new PutStackCommand((WorkingPack)h.src, (WorkingPack)h.tar, h.c));
+            if(h.cmd == 3)
+                cmdManager.executeCommand(new PutToTargetPackCommand((CardDeck)h.src, (TargetPack)h.tar));
+            if(h.cmd == 4)
+                cmdManager.executeCommand(new TurnCardPullStackCommand(this.pullPack, this.trashPack));
+        }
     }
 
    public List<Card> shuffleCards()
@@ -178,8 +194,8 @@ public class Game implements java.io.Serializable{
       {
           for(TargetPack tar : this.targetPack) {
               if (this.cmdManager.hint(new PutToTargetPackCommand(src, tar))) {
-                  //System.out.println("to target src:" + src.size() + " tar:" + tar.size() + "_______" + src.get() + "_________");
-                  return new Hint(src, tar, src.get());
+                  System.out.println("working to target pack:to target src:" + src.size() + " tar:" + tar.size() + "_______" + src.get() + "_________");
+                  return new Hint(src, tar, src.get(), 3);
               }
           }
       }
@@ -188,8 +204,8 @@ public class Game implements java.io.Serializable{
       {
           CardDeck src = this.trashPack;
           if (this.cmdManager.hint(new PutToTargetPackCommand(src, tar))) {
-              //System.out.println("to target src:" + src.size() + " tar:" + tar.size() + "_______" + src.get() + "_________");
-              return new Hint(src, tar, src.get());
+              System.out.println("pullpack to targetpack:to target src:" + src.size() + " tar:" + tar.size() + "_______" + src.get() + "_________");
+              return new Hint(src, tar, src.get(), 3);
           }
       }
         //move stack from working pack ot another working pack
@@ -203,8 +219,8 @@ public class Game implements java.io.Serializable{
              {
                  //System.out.println("tar was:"+tar.size());
                  if(this.cmdManager.hint(new PutStackCommand(src, tar, c))) {
-                     //System.out.println("src:"+src.size()+" tar:"+tar.size()+"_______"+ c +"_________");
-                     return new Hint(src, tar, c);
+                     System.out.println("working to working?src:"+src.size()+" tar:"+tar.size()+"_______"+ c +"_________");
+                     return new Hint(src, tar, c, 2);
                  }
              }
           }
@@ -213,13 +229,13 @@ public class Game implements java.io.Serializable{
       for(WorkingPack tar : this.workingPack)
       {
           if(this.cmdManager.hint(new PullCardCommand(tar, this.trashPack))) {
-              //System.out.println("src:" + this.trashPack.size() + " tar:" + tar.size() + "_______" + this.trashPack.get() + "_________");
-              return new Hint(this.trashPack, tar, this.trashPack.get());
+              System.out.println("pull to somewhere:src:" + this.trashPack.size() + " tar:" + tar.size() + "_______" + this.trashPack.get() + "_________");
+              return new Hint(this.trashPack, tar, this.trashPack.get(), 1);
           }
       }
       //turn card on pullpack
-    //System.out.println("PULL FROM PULL!!!");
-    return new Hint(this.pullPack, null, this.pullPack.get());
+    System.out.println("PULL FROM PULL!!!");
+    return new Hint(this.pullPack, this.trashPack, null,4);
   }
 
 

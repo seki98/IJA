@@ -10,6 +10,7 @@ public class CommandManager
 
     public boolean executeCommand(Command cmd)
     {
+        System.out.println("EXECUTE");
         if (cmd instanceof UndoCommand)
         {
             commandStack.push(cmd);
