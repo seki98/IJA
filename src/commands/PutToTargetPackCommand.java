@@ -23,9 +23,9 @@ public class PutToTargetPackCommand implements UndoCommand{
       return false;
     if(targetStack.put(sourceStack.get()))
     {
+      sourceStack.pop();
       if(sourceStack.size() >= 1)
         sourceStack.get().turnFaceUp();
-          sourceStack.pop();
     }
     return true;
   }
