@@ -30,11 +30,10 @@ public class TurnCardPullStackCommand implements UndoCommand{
         }
     }
     else{
-      Card c = pullStack.get();
+      Card c = pullStack.pop();
+      c.turnFaceUp();
       if(!trashStack.put(c))
         return false;
-      pullStack.pop();
-      c.turnFaceUp();
     }
     return true;
   }
