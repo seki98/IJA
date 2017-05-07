@@ -92,6 +92,13 @@ public class OneGameGUI extends JLayeredPane {
             WorkingStackBack[i] = new JLabel(new ImageIcon("src/img/cards/empty_workingpack.png"));
             WorkingStackBack[i].setBounds(20+(120*i), 200, 100, 145);
             add(WorkingStackBack[i], 1, 0);
+            final int wsbi = i;
+            WorkingStackBack[i].addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    WorkingStackCardClicked(wsbi, -1);
+                }
+            });
         }
 
         iHelp = new JLabel(new ImageIcon("src/img/help-me.png"));
@@ -143,8 +150,8 @@ public class OneGameGUI extends JLayeredPane {
                 break;
             top++;
         }
-        System.out.print("->       top="+top+"\n");
-        System.out.print("-> cardindex="+cardindex+"\n");
+        // System.out.print("->       top="+top+"\n");
+        // System.out.print("-> cardindex="+cardindex+"\n");
         return (top == cardindex);
     }
 
