@@ -72,7 +72,7 @@ public class MultiGameGUI extends JLayeredPane {
 
         // paint TargetPacks background
         for(int i=0; i<4; i++){
-            TargetPackBackground[i] = new JLabel(new ImageIcon("lib/img/cards/empty_"+(i+1)+".png"));
+            TargetPackBackground[i] = new JLabel(new ImageIcon("lib/img/cards-mini/empty_"+(i+1)+".png"));
             TargetPackBackground[i].setBounds(190+(60*i), 10, 50, 72);
             this.add(TargetPackBackground[i], 1, 0);
             final int tgpb = i;
