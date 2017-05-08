@@ -116,7 +116,10 @@ public class OneGameGUI extends JLayeredPane {
         iNew.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // JOptionPane.showMessageDialog(new JFrame(), mygame.getHintMessage());
+                /**
+                 * TODO: Zrusi OneGameGUI a otvori vytvori MultiGameGUI s 2 hrami
+                 * Prva hra ostane aktualna, vedla nej sa nacita nova
+                 */
             }
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -131,7 +134,10 @@ public class OneGameGUI extends JLayeredPane {
         iLoad.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // JOptionPane.showMessageDialog(new JFrame(), mygame.getHintMessage());
+                /**
+                 * TODO: Otvori popup okno na nahratie hry zo suboru
+                 * Nacita hru a reloadne JLayeredPane
+                 */
             }
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -146,7 +152,9 @@ public class OneGameGUI extends JLayeredPane {
         iSave.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // JOptionPane.showMessageDialog(new JFrame(), mygame.getHintMessage());
+                /**
+                 * TODO: Otvori popup okno na ulozenie hry
+                 */
             }
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -161,7 +169,10 @@ public class OneGameGUI extends JLayeredPane {
         iReload.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // JOptionPane.showMessageDialog(new JFrame(), mygame.getHintMessage());
+                /**
+                 * TODO!!! Reloadne HRU odznova
+                 * nejakym zpusobem vytvori novu hru a reloadne JLayeredPane
+                 */
             }
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -244,8 +255,6 @@ public class OneGameGUI extends JLayeredPane {
     }
 
     private boolean isTopCardOfWorkingStack(int WorkingStackIndex, int cardindex){
-        System.out.print("->       top="+(mygame.workingPack[WorkingStackIndex].size()-1)+"\n");
-        System.out.print("-> cardindex="+cardindex+"\n");
         return (cardindex == (mygame.workingPack[WorkingStackIndex].size()-1));
     }
 
@@ -397,7 +406,6 @@ public class OneGameGUI extends JLayeredPane {
         }
         ShownPullPackCards = 0;
 
-        // System.out.print("\n== print pull pack ==\n");
         Card pullStackCard;
         for(int i = 0; i<mygame.pullPack.size();i++) {
             pullStackCard = this.mygame.pullPack.get(i);
@@ -414,12 +422,6 @@ public class OneGameGUI extends JLayeredPane {
                     PullPackClicked();
                 }
             });
-            /*
-            System.out.print("-> card: "+pullStackCard.toString()+" ");
-            if(pullStackCard.isTurnedFaceUp())
-                System.out.print("FACE UP");
-            System.out.print("\n");
-            */
             ShownPullPackCards++;
         }
     }
