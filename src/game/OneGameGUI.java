@@ -35,8 +35,6 @@ public class OneGameGUI extends JLayeredPane {
     private int ShownTargetPackCards[] = new int[4];
 
     // Automata
-    private boolean TrashPackCardSelected = false;
-    private boolean WorkingPackCardSelected = false;
     private boolean MovingTrashPackCard = false;
     private boolean MovingWorkingPack = false;
     private int MovingWorkingPackPI;
@@ -45,22 +43,21 @@ public class OneGameGUI extends JLayeredPane {
     // Command icons
     private JLabel iHelp = new JLabel();
 
+    // Constructor
     public OneGameGUI(Game mygamein){
         this.mygame = mygamein;
         makeGameFrame();
     }
 
-    private void ClearOperations(){
-        this.MovingWorkingPack=false;
-        this.MovingTrashPackCard=false;
-    }
-
+    // GUI JLayeredPane initialization
     private void makeGameFrame(){
+        // initialize number of shown WorkingStackCards and TargetPackCards
         for(int no=0; no<7; no++)
             ShownWorkingPackCards[no]=0;
         for(int no=0; no<4; no++)
             ShownTargetPackCards[no]=0;
 
+        // paint TargetPacks background
         for(int i=0; i<4; i++){
             TargetPackBackground[i] = new JLabel(new ImageIcon("src/img/cards/empty_targetpack.png"));
             TargetPackBackground[i].setBounds(380+(120*i), 20, 100, 145);
@@ -74,6 +71,7 @@ public class OneGameGUI extends JLayeredPane {
             });
         }
 
+        // paint PullPack background
         PullPackBackground = new JLabel(new ImageIcon("src/img/cards/empty_workingpack.png"));
         PullPackBackground.setBounds(20, 20, 100, 145);
         add(PullPackBackground, 1, 0);
@@ -84,10 +82,12 @@ public class OneGameGUI extends JLayeredPane {
             }
         });
 
+        // paint TrashPack background
         TrashPackBackground = new JLabel(new ImageIcon("src/img/cards/empty_workingpack.png"));
         TrashPackBackground.setBounds(140, 20, 100, 145);
         add(TrashPackBackground, 1, 0);
 
+        // paint WorkingStacks background
         for(int i = 0; i<7;i++) {
             WorkingStackBack[i] = new JLabel(new ImageIcon("src/img/cards/empty_workingpack.png"));
             WorkingStackBack[i].setBounds(20+(120*i), 200, 100, 145);
@@ -96,63 +96,64 @@ public class OneGameGUI extends JLayeredPane {
             WorkingStackBack[i].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    WorkingStackCardClicked(wsbi, -1);
+                    EmptyWorkingStackCardClicked(wsbi);
                 }
             });
         }
 
+        // paint Minion
         iHelp = new JLabel(new ImageIcon("src/img/help-me.png"));
         iHelp.setBounds(260, 90, 96, 96);
         add(iHelp, 1, 0);
 
+        // paint all cards
         paintWorkingStacks();
         paintPullPack();
         paintTrashPack();
+        paintTargetPack();
     }
 
-    private void paintWorkingStacks(){
-        for(int wpi=0; wpi<7; wpi++){
-            for(int wpj=0; wpj<ShownWorkingPackCards[wpi]; wpj++){
-                remove(WorkingStack[wpi][wpj]);
-            }
-        }
+    // ========================================================
+    // -------------------- HELP FUNCTIONS --------------------
+    // ========================================================
 
-        for (int delete=0; delete<7; delete++)
-            ShownWorkingPackCards[delete] = 0;
-
-        final Card c[][] = new Card[7][13];
-        for(int i=0; i<7; i++){
-            for(int j=0;j<mygame.workingPack[i].size();j++){
-                c[i][j] = this.mygame.workingPack[i].get(j);
-                if(c[i][j]==null)
-                    break;
-                final int mi = i;
-                final int mj = j;
-                WorkingStack[i][j] = new JLabel(new ImageIcon(c[i][j].getFileName()));
-                WorkingStack[i][j].setName(c[i][j].toString());
-                WorkingStack[i][j].setBounds(20+(120*i), 200 + (25 * j), 100, 145);
-                add(WorkingStack[i][j], j+2, 0);
-                WorkingStack[i][j].addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        WorkingStackCardClicked(mi, mj);
-                    }
-                });
-                ShownWorkingPackCards[i]++;
-            }
-        }
+    private void ClearOperations(){
+        this.MovingWorkingPack=false;
+        this.MovingTrashPackCard=false;
     }
 
     private boolean isTopCardOfWorkingStack(int WorkingStackIndex, int cardindex){
-        int top = -1;
-        for(int i=0; ;i++){
-            if(mygame.workingPack[WorkingStackIndex].get(i) == null)
-                break;
-            top++;
+        System.out.print("->       top="+(mygame.workingPack[WorkingStackIndex].size()-1)+"\n");
+        System.out.print("-> cardindex="+cardindex+"\n");
+        return (cardindex == (mygame.workingPack[WorkingStackIndex].size()-1));
+    }
+
+    // ===============================================================
+    // -------------------- CLICK-EVENTS AUTOMATA --------------------
+    // ===============================================================
+
+    private void EmptyWorkingStackCardClicked(int i){
+        if(this.MovingTrashPackCard){
+            if(this.mygame.cmdManager.executeCommand(new PullCardCommand(this.mygame.workingPack[i], this.mygame.trashPack))){
+                paintTrashPack();
+                paintPullPack();
+                paintWorkingStacks();
+                repaint();
+            }
+            else{
+                System.out.print("Karta nemohla byt presunuta!\n\n");
+            }
         }
-        // System.out.print("->       top="+top+"\n");
-        // System.out.print("-> cardindex="+cardindex+"\n");
-        return (top == cardindex);
+        else if(this.MovingWorkingPack){
+            if(this.mygame.cmdManager.executeCommand(new PutStackCommand(mygame.workingPack[MovingWorkingPackPI],mygame.workingPack[i],mygame.workingPack[MovingWorkingPackPI].get(MovingWorkingPackCI)))){
+                paintWorkingStacks();
+                repaint();
+            }
+            else{
+                System.out.print("Karta nemohla byt presunuta!\n\n");
+            }
+        }
+        ClearOperations();
     }
 
     private void WorkingStackCardClicked(int i, int j){
@@ -172,7 +173,7 @@ public class OneGameGUI extends JLayeredPane {
             else{
                 System.out.print("Nebolo kliknute na vrchnu kartu workingPacku!\n\n");
             }
-            this.MovingTrashPackCard = false;
+            ClearOperations();
         }
         else if(this.MovingWorkingPack){
             // presun karty alebo stacku na danu kartu
@@ -183,8 +184,7 @@ public class OneGameGUI extends JLayeredPane {
             else{
                 System.out.print("Karta nemohla byt presunuta!\n\n");
             }
-
-            this.MovingWorkingPack = false;
+            ClearOperations();
         }
         else {
             this.MovingWorkingPack = true;
@@ -208,7 +208,6 @@ public class OneGameGUI extends JLayeredPane {
             else{
                 System.out.print("Do cieloveho balicka je mozne presunut iba 1 kartu!\n"); // TODO!
             }
-
         }
         else if(this.MovingTrashPackCard){
             if(mygame.cmdManager.executeCommand(new PutToTargetPackCommand(mygame.trashPack,mygame.targetPack[i]))){
@@ -244,6 +243,10 @@ public class OneGameGUI extends JLayeredPane {
             System.out.print("Karta z pullpacku nebola presunuta do trashpacku!"); // TODO!
         }
     }
+
+    // ========================================================
+    // -------------------- PAINTING PACKS --------------------
+    // ========================================================
 
     private void paintPullPack() {
         for(int delete=0; delete<this.ShownPullPackCards; delete++){
@@ -339,6 +342,39 @@ public class OneGameGUI extends JLayeredPane {
                 });
                 add(TargetPack[tgp][i], ShownTargetPackCards[tgp]+2, 0);
                 ShownTargetPackCards[tgp]++;
+            }
+        }
+    }
+
+    private void paintWorkingStacks(){
+        for(int wpi=0; wpi<7; wpi++){
+            for(int wpj=0; wpj<ShownWorkingPackCards[wpi]; wpj++){
+                remove(WorkingStack[wpi][wpj]);
+            }
+        }
+
+        for (int delete=0; delete<7; delete++)
+            ShownWorkingPackCards[delete] = 0;
+
+        final Card c[][] = new Card[7][13];
+        for(int i=0; i<7; i++){
+            for(int j=0;j<mygame.workingPack[i].size();j++){
+                c[i][j] = this.mygame.workingPack[i].get(j);
+                if(c[i][j]==null)
+                    break;
+                final int mi = i;
+                final int mj = j;
+                WorkingStack[i][j] = new JLabel(new ImageIcon(c[i][j].getFileName()));
+                WorkingStack[i][j].setName(c[i][j].toString());
+                WorkingStack[i][j].setBounds(20+(120*i), 200 + (25 * j), 100, 145);
+                add(WorkingStack[i][j], j+2, 0);
+                WorkingStack[i][j].addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        WorkingStackCardClicked(mi, mj);
+                    }
+                });
+                ShownWorkingPackCards[i]++;
             }
         }
     }
