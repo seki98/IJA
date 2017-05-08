@@ -1,2 +1,2 @@
-wget http://sebastiankisela.com/sources.tgz
-tar -xvzf sources.tgz
+wget http://sebastiankisela.com/sources.zip
+unzip sources.zip
