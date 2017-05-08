@@ -48,18 +48,28 @@ public class Game implements java.io.Serializable{
         randomCards = shuffleCards();
         spreadCardsToWorkingPack();
         spreadCardsToPullPack();
+        doSomeTurns(5555);
+
+    }
+
+    public void doSomeTurns(int max)
+    {
 
         Hint h;
-        for(int y = 0; y > 55; y++)
+        for(int y = 0; y < max; y++)
         {
             h = showHint();
-
+            //System.out.println("from " + h.src + " to " + h.tar + " cmd: " + h.cmd);
             if(h.cmd == 1)
-                cmdManager.executeCommand(new PullCardCommand((WorkingPack)h.src, (CardDeck)h.tar));
+                cmdManager.executeCommand(new PullCardCommand(workingPack[h.src-6],trashPack));
             if(h.cmd == 2)
-                cmdManager.executeCommand(new PutStackCommand((WorkingPack)h.src, (WorkingPack)h.tar, h.c));
-            if(h.cmd == 3)
-                cmdManager.executeCommand(new PutToTargetPackCommand((CardDeck)h.src, (TargetPack)h.tar));
+                cmdManager.executeCommand(new PutStackCommand(workingPack[h.src-6], workingPack[h.tar-6], h.c));
+            if(h.cmd == 3) {
+                if(h.src >= 6 && h.src <=12)
+                    cmdManager.executeCommand(new PutToTargetPackCommand(workingPack[h.src-6], targetPack[h.tar-2]));
+                else
+                    cmdManager.executeCommand(new PutToTargetPackCommand(trashPack, targetPack[h.tar-2]));
+            }
             if(h.cmd == 4)
                 cmdManager.executeCommand(new TurnCardPullStackCommand(this.pullPack, this.trashPack));
         }
@@ -190,52 +200,65 @@ public class Game implements java.io.Serializable{
   public Hint showHint()
   {
         //try to put to target pack
+      int i = 5;
+      int y = 1;
       for(WorkingPack src : this.workingPack)
       {
+          i++;
+          y = 1;
           for(TargetPack tar : this.targetPack) {
+              y++;
               if (this.cmdManager.hint(new PutToTargetPackCommand(src, tar))) {
-                  System.out.println("working to target pack:to target src:" + src.size() + " tar:" + tar.size() + "_______" + src.get() + "_________");
-                  return new Hint(src, tar, src.get(), 3);
+                  //System.out.println("working to target pack:to target src:" + src.size() + " tar:" + tar.size() + "_______" + src.get() + "_________");
+                  return new Hint(i, y, src.get(), 3);
               }
           }
       }
       //pull from pullpack and place to targetPack
+      i = 0; y = 1;
       for(TargetPack tar : this.targetPack)
       {
+          y++;
           CardDeck src = this.trashPack;
           if (this.cmdManager.hint(new PutToTargetPackCommand(src, tar))) {
-              System.out.println("pullpack to targetpack:to target src:" + src.size() + " tar:" + tar.size() + "_______" + src.get() + "_________");
-              return new Hint(src, tar, src.get(), 3);
+              //System.out.println("pullpack to targetpack:to target src:" + src.size() + " tar:" + tar.size() + "_______" + src.get() + "_________");
+              return new Hint(1, y, src.get(), 3);
           }
       }
         //move stack from working pack ot another working pack
+      int sr = 5;
       for(WorkingPack src : this.workingPack)
       {
-          for(int i = 0; i < src.size(); i++)
+          sr++;
+          for(i = 0; i < src.size(); i++)
           {
              Card c = src.get(i);
-             if(c.isTurnedFaceUp())
-             for(WorkingPack tar : this.workingPack)
-             {
-                 //System.out.println("tar was:"+tar.size());
-                 if(this.cmdManager.hint(new PutStackCommand(src, tar, c))) {
-                     System.out.println("working to working?src:"+src.size()+" tar:"+tar.size()+"_______"+ c +"_________");
-                     return new Hint(src, tar, c, 2);
+             y = 5;
+             if(c.isTurnedFaceUp()) {
+                 for (WorkingPack tar : this.workingPack) {
+                     y++;
+                     //System.out.println("tar was:"+tar.size());
+                     if (this.cmdManager.hint(new PutStackCommand(src, tar, c))) {
+                         //System.out.println(sr + " " + y + "working to working?src:" + src.size() + " tar:" + tar.size() + "_______" + c + "_________");
+                         return new Hint(sr, y, c, 2);
+                     }
                  }
              }
           }
       }
       //pull from pullpack and place somewhere
+      i = 5;
       for(WorkingPack tar : this.workingPack)
       {
+          i++;
           if(this.cmdManager.hint(new PullCardCommand(tar, this.trashPack))) {
-              System.out.println("pull to somewhere:src:" + this.trashPack.size() + " tar:" + tar.size() + "_______" + this.trashPack.get() + "_________");
-              return new Hint(this.trashPack, tar, this.trashPack.get(), 1);
+              //System.out.println("pull to somewhere:src:" + this.trashPack.size() + " tar:" + tar.size() + "_______" + this.trashPack.get() + "_________");
+              return new Hint(i, 1, this.trashPack.get(), 1);
           }
       }
       //turn card on pullpack
-    System.out.println("PULL FROM PULL!!!");
-    return new Hint(this.pullPack, this.trashPack, null,4);
+    //System.out.println("PULL FROM PULL!!!");
+    return new Hint(0, 1, null,4);
   }
 
 

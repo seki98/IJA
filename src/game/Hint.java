@@ -4,11 +4,11 @@ import src.ija2016.model.cards.Card;
 
 public class Hint
 {
-    CardDeck src;
-    CardDeck tar;
+    int src;
+    int tar;
     Card c;
     int cmd;
-    public Hint(CardDeck src, CardDeck tar, Card c, int cmd)
+    public Hint(int src, int tar, Card c, int cmd)
     {
         this.src = src;
         this.tar = tar;

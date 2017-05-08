@@ -10,13 +10,18 @@ public class CommandManager
 
     public boolean executeCommand(Command cmd)
     {
-        System.out.println("EXECUTE");
         if (cmd instanceof UndoCommand)
         {
             commandStack.push(cmd);
         }
         if(cmd.execute())
+        {
+
+            System.out.println("EXECUTE");
             return true;
+        }
+
+        System.out.println("CANT EXECUTE, BACKEND PROBLEM");
         return false;
     }
 
