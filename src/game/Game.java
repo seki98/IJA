@@ -42,7 +42,7 @@ public class Game implements java.io.Serializable{
        }
 
        for (i = 0; i <= 6; i++) {
-           workingPack[i] = (WorkingPack)factory.createWorkingPack();
+           workingPack[i] = (WorkingPack)factory.createWorkingPack(i+1);
        }
 
         randomCards = shuffleCards();

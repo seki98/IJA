@@ -31,6 +31,9 @@ public class PutStackCommand implements UndoCommand{
 
   public boolean execute()
   {
+      if(sourceStack == targetStack)
+          return false;
+      System.out.println("SRC: "+sourceStack.packnum + " TAR: "+targetStack.packnum);
       if(!card.isTurnedFaceUp())
           return false;
       CardStack cs = sourceStack.pop(card);
