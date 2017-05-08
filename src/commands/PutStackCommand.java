@@ -11,11 +11,16 @@ public class PutStackCommand implements UndoCommand{
   protected WorkingPack sourceStack;
   protected WorkingPack targetStack;
   protected Card card;
+  protected boolean srcwashidden;
+  protected boolean tarwashidden;
+
 
   public PutStackCommand(WorkingPack sourceStack, WorkingPack targetStack, Card card)
   {
     this.sourceStack = sourceStack;
     this.targetStack = targetStack;
+    this.tarwashidden = true;
+    this.srcwashidden = true;
     this.card = card;
   }
 
@@ -53,7 +58,16 @@ public class PutStackCommand implements UndoCommand{
   {
       Card c = sourceStack.get();
       //c.turnFaceDown();
-    sourceStack.put(targetStack.pop(card));
+    CardStack cs = targetStack.pop(card);
+    int i = 0;
+    while(true)
+    {
+
+        if(cs.get(i) == null)
+            break;
+        sourceStack.forcePut(cs.get(i));
+        i++;
+    }
   }
 
 }
