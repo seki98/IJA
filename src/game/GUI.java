@@ -44,10 +44,10 @@ public class GUI extends JFrame {
         backgroundPane.add(oneGamePane, 1, 0);
 
         /*
-        multipleGamesPane[0] = new OneGameGUI(this.mygame);
-        multipleGamesPane[1] = new OneGameGUI(this.mygame);
-        multipleGamesPane[2] = new OneGameGUI(this.mygame);
-        multipleGamesPane[3] = new OneGameGUI(this.mygame);
+        multipleGamesPane[0] = new MultiGameGUI(this.mygame);
+        multipleGamesPane[1] = new MultiGameGUI(this.mygame);
+        multipleGamesPane[2] = new MultiGameGUI(this.mygame);
+        multipleGamesPane[3] = new MultiGameGUI(this.mygame);
         multipleGamesPane[0].setBounds(0,0,430,330);
         multipleGamesPane[1].setBounds(430,0,430,330);
         multipleGamesPane[2].setBounds(0,330,430,330);
@@ -57,7 +57,6 @@ public class GUI extends JFrame {
         backgroundPane.add(multipleGamesPane[2], 1, 0);
         backgroundPane.add(multipleGamesPane[3], 1, 0);
         */
-
         pack();
         setVisible(true);
     }

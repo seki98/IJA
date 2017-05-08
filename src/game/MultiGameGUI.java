@@ -14,7 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class OneGameGUI extends JLayeredPane {
+public class MultiGameGUI extends JLayeredPane {
 
     private Game mygame;
 
@@ -44,7 +44,7 @@ public class OneGameGUI extends JLayeredPane {
     private JLabel iHelp = new JLabel();
 
     // Constructor
-    public OneGameGUI(Game mygamein){
+    public MultiGameGUI(Game mygamein){
         this.mygame = mygamein;
         makeGameFrame();
     }
@@ -59,8 +59,8 @@ public class OneGameGUI extends JLayeredPane {
 
         // paint TargetPacks background
         for(int i=0; i<4; i++){
-            TargetPackBackground[i] = new JLabel(new ImageIcon("src/img/cards/empty_targetpack.png"));
-            TargetPackBackground[i].setBounds(380+(120*i), 20, 100, 145);
+            TargetPackBackground[i] = new JLabel(new ImageIcon("src/img/cards-mini/empty_targetpack.png"));
+            TargetPackBackground[i].setBounds(190+(60*i), 10, 50, 72);
             this.add(TargetPackBackground[i], 1, 0);
             final int tgpb = i;
             TargetPackBackground[i].addMouseListener(new MouseAdapter() {
@@ -72,8 +72,8 @@ public class OneGameGUI extends JLayeredPane {
         }
 
         // paint PullPack background
-        PullPackBackground = new JLabel(new ImageIcon("src/img/cards/empty_workingpack.png"));
-        PullPackBackground.setBounds(20, 20, 100, 145);
+        PullPackBackground = new JLabel(new ImageIcon("src/img/cards-mini/empty_workingpack.png"));
+        PullPackBackground.setBounds(10, 10, 50, 72);
         add(PullPackBackground, 1, 0);
         PullPackBackground.addMouseListener(new MouseAdapter() {
             @Override
@@ -83,14 +83,14 @@ public class OneGameGUI extends JLayeredPane {
         });
 
         // paint TrashPack background
-        TrashPackBackground = new JLabel(new ImageIcon("src/img/cards/empty_workingpack.png"));
-        TrashPackBackground.setBounds(140, 20, 100, 145);
+        TrashPackBackground = new JLabel(new ImageIcon("src/img/cards-mini/empty_workingpack.png"));
+        TrashPackBackground.setBounds(70, 10, 50, 72);
         add(TrashPackBackground, 1, 0);
 
         // paint WorkingStacks background
         for(int i = 0; i<7;i++) {
-            WorkingStackBack[i] = new JLabel(new ImageIcon("src/img/cards/empty_workingpack.png"));
-            WorkingStackBack[i].setBounds(20+(120*i), 200, 100, 145);
+            WorkingStackBack[i] = new JLabel(new ImageIcon("src/img/cards-mini/empty_workingpack.png"));
+            WorkingStackBack[i].setBounds(10+(60*i), 100, 50, 72);
             add(WorkingStackBack[i], 1, 0);
             final int wsbi = i;
             WorkingStackBack[i].addMouseListener(new MouseAdapter() {
@@ -103,7 +103,7 @@ public class OneGameGUI extends JLayeredPane {
 
         // paint Minion
         iHelp = new JLabel(new ImageIcon("src/img/help-me.png"));
-        iHelp.setBounds(260, 90, 96, 96);
+        iHelp.setBounds(130, 45, 48, 48);
         add(iHelp, 1, 0);
 
         // paint all cards
@@ -260,8 +260,8 @@ public class OneGameGUI extends JLayeredPane {
             pullStackCard = this.mygame.pullPack.get(i);
             if(pullStackCard == null) break;
 
-            PullPack[i] = new JLabel(new ImageIcon("src/img/cards/"+pullStackCard.getFileName()));
-            PullPack[i].setBounds(20, 20, 100, 145);
+            PullPack[i] = new JLabel(new ImageIcon("src/img/cards-mini/"+pullStackCard.getFileName()));
+            PullPack[i].setBounds(10, 10, 50, 72);
 
             add(PullPack[i], i+2, 0);
 
@@ -292,8 +292,8 @@ public class OneGameGUI extends JLayeredPane {
             TrashStackCard = mygame.trashPack.get(i);
             if(TrashStackCard == null) return;
 
-            TrashPack[i] = new JLabel(new ImageIcon("src/img/cards/"+TrashStackCard.getFileName()));
-            TrashPack[i].setBounds(140, 20, 100, 145);
+            TrashPack[i] = new JLabel(new ImageIcon("src/img/cards-mini/"+TrashStackCard.getFileName()));
+            TrashPack[i].setBounds(70, 10, 50, 72);
             TrashPack[i].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -332,8 +332,8 @@ public class OneGameGUI extends JLayeredPane {
                 c = mygame.targetPack[tgp].get(i);
                 if(c == null) return;
 
-                TargetPack[tgp][i] = new JLabel(new ImageIcon("src/img/cards/"+c.getFileName()));
-                TargetPack[tgp][i].setBounds(380+(120*tgp), 20, 100, 145);;
+                TargetPack[tgp][i] = new JLabel(new ImageIcon("src/img/cards-mini/"+c.getFileName()));
+                TargetPack[tgp][i].setBounds(190+(60*tgp), 10, 50, 72);;
                 TargetPack[tgp][i].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
@@ -364,9 +364,9 @@ public class OneGameGUI extends JLayeredPane {
                     break;
                 final int mi = i;
                 final int mj = j;
-                WorkingStack[i][j] = new JLabel(new ImageIcon("src/img/cards/"+c[i][j].getFileName()));
+                WorkingStack[i][j] = new JLabel(new ImageIcon("src/img/cards-mini/"+c[i][j].getFileName()));
                 WorkingStack[i][j].setName(c[i][j].toString());
-                WorkingStack[i][j].setBounds(20+(120*i), 200 + (25 * j), 100, 145);
+                WorkingStack[i][j].setBounds(10+(60*i), 100 + (12 * j), 50, 72);
                 add(WorkingStack[i][j], j+2, 0);
                 WorkingStack[i][j].addMouseListener(new MouseAdapter() {
                     @Override
