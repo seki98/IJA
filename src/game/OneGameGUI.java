@@ -39,10 +39,16 @@ public class OneGameGUI extends JLayeredPane {
     private boolean MovingWorkingPack = false;
     private int MovingWorkingPackPI;
     private int MovingWorkingPackCI;
+    private boolean iSelected = false;
 
     // Command icons
-    private JLabel iHelp = new JLabel();
+    private JLabel iNew = new JLabel();
+    private JLabel iLoad = new JLabel();
+    private JLabel iSave = new JLabel();
+    private JLabel iReload = new JLabel();
+    private JLabel iHint = new JLabel();
     private JLabel iUndo = new JLabel();
+    private JLabel iUnselect = new JLabel();
 
     // Constructor
     public OneGameGUI(Game mygamein){
@@ -102,25 +108,87 @@ public class OneGameGUI extends JLayeredPane {
             });
         }
 
+
+        // paint command icon NEW
+        iNew = new JLabel(new ImageIcon("src/img/full/new.png"));
+        iNew.setBounds(255, 20, 32, 32);
+        add(iNew, 1, 0);
+        iNew.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // JOptionPane.showMessageDialog(new JFrame(), mygame.getHintMessage());
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                iNew.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+        });
+
+        // paint command icon LOAD
+        iLoad = new JLabel(new ImageIcon("src/img/full/load.png"));
+        iLoad.setBounds(295, 20, 32, 32);
+        add(iLoad, 1, 0);
+        iLoad.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // JOptionPane.showMessageDialog(new JFrame(), mygame.getHintMessage());
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                iLoad.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+        });
+
+        // paint command icon SAVE
+        iSave = new JLabel(new ImageIcon("src/img/full/save.png"));
+        iSave.setBounds(335, 20, 32, 32);
+        add(iSave, 1, 0);
+        iSave.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // JOptionPane.showMessageDialog(new JFrame(), mygame.getHintMessage());
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                iSave.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+        });
+
+        // paint command icon RELOAD
+        iReload = new JLabel(new ImageIcon("src/img/full/reload.png"));
+        iReload.setBounds(335, 60, 32, 32);
+        add(iReload, 1, 0);
+        iReload.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // JOptionPane.showMessageDialog(new JFrame(), mygame.getHintMessage());
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                iReload.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+        });
+
+
         // paint Minion
-        iHelp = new JLabel(new ImageIcon("src/img/help-me.png"));
-        iHelp.setBounds(260, 90, 96, 96);
-        add(iHelp, 1, 0);
-        iHelp.addMouseListener(new MouseAdapter() {
+        iHint = new JLabel(new ImageIcon("src/img/full/hint.png"));
+        iHint.setBounds(260, 70, 64, 64);
+        add(iHint, 1, 0);
+        iHint.addMouseListener(new MouseAdapter() {
            @Override
            public void mouseClicked(MouseEvent e) {
                 JOptionPane.showMessageDialog(new JFrame(), mygame.getHintMessage());
                }
            @Override
            public void mouseEntered(MouseEvent e) {
-               iHelp.setCursor(new Cursor(Cursor.HAND_CURSOR));
+               iHint.setCursor(new Cursor(Cursor.HAND_CURSOR));
            }
        });
 
 
         // paint Undo
-        iUndo = new JLabel(new ImageIcon("src/img/undo.png"));
-        iUndo.setBounds(250, 20, 48, 48);
+        iUndo = new JLabel(new ImageIcon("src/img/full/undo.png"));
+        iUndo.setBounds(335, 100, 32, 32);
         add(iUndo, 1, 0);
         iUndo.addMouseListener(new MouseAdapter() {
             @Override
@@ -138,6 +206,22 @@ public class OneGameGUI extends JLayeredPane {
             }
         });
 
+        // paint UNSELECT
+        iUnselect = new JLabel(new ImageIcon("src/img/full/unselect.png"));
+        iUnselect.setBounds(295, 160, 32, 32);
+        iUnselect.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                ClearOperations();
+                remove(iUnselect);
+                repaint();
+            }
+            @Override
+            public void mouseEntered(MouseEvent e){
+                iUnselect.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+        });
+
         // paint all cards
         paintWorkingStacks();
         paintPullPack();
@@ -150,6 +234,11 @@ public class OneGameGUI extends JLayeredPane {
     // ========================================================
 
     private void ClearOperations(){
+        if(iSelected){
+            remove(iUnselect);
+            iSelected = false;
+            repaint();
+        }
         this.MovingWorkingPack=false;
         this.MovingTrashPackCard=false;
     }
@@ -222,6 +311,9 @@ public class OneGameGUI extends JLayeredPane {
             this.MovingWorkingPack = true;
             this.MovingWorkingPackPI = i;
             this.MovingWorkingPackCI = j;
+            add(iUnselect, 1, 0);
+            iSelected = true;
+            repaint();
         }
     }
 
@@ -245,6 +337,7 @@ public class OneGameGUI extends JLayeredPane {
             if(mygame.cmdManager.executeCommand(new PutToTargetPackCommand(mygame.trashPack,mygame.targetPack[i]))){
                 paintTrashPack();
                 paintTargetPack();
+                remove(iUnselect);
                 repaint();
             }
             else{
@@ -280,6 +373,18 @@ public class OneGameGUI extends JLayeredPane {
             }
         }
         ClearOperations();
+    }
+
+    private void TrashPackClicked(){
+        if((MovingTrashPackCard) || (MovingWorkingPack)){
+            ClearOperations();
+        }
+        else{
+            MovingTrashPackCard = true;
+            add(iUnselect, 1, 0);
+            iSelected = true;
+            repaint();
+        }
     }
 
     // ========================================================
@@ -335,17 +440,7 @@ public class OneGameGUI extends JLayeredPane {
             TrashPack[i].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if(MovingTrashPackCard){
-                        MovingTrashPackCard = false;
-                        System.out.print("TrashPack Card unselected!\n");
-                    }
-                    else if(MovingWorkingPack){
-                        MovingWorkingPack = false;
-                        System.out.print("WorkingPack unselected!\n");
-                    }
-                    else{
-                        MovingTrashPackCard = true;
-                    }
+                    TrashPackClicked();
                 }
             });
             add(TrashPack[i], ShownTrashPackCards+2, 0);

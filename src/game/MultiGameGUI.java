@@ -109,7 +109,7 @@ public class MultiGameGUI extends JLayeredPane {
 
         // paint Undo
         iUndo = new JLabel(new ImageIcon("src/img/mini/undo.png"));
-        iUndo.setBounds(250, 20, 48, 48);
+        iUndo.setBounds(125, 10, 48, 48);
         add(iUndo, 1, 0);
         iUndo.addMouseListener(new MouseAdapter() {
             @Override

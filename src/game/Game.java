@@ -48,7 +48,7 @@ public class Game implements java.io.Serializable{
         randomCards = shuffleCards();
         spreadCardsToWorkingPack();
         spreadCardsToPullPack();
-        doSomeTurns(555);
+        //doSomeTurns(555);
 
     }
 
