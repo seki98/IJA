@@ -67,7 +67,7 @@ public class OneGameGUI extends JLayeredPane {
 
         // paint TargetPacks background
         for(int i=0; i<4; i++){
-            TargetPackBackground[i] = new JLabel(new ImageIcon("src/img/cards/empty_targetpack.png"));
+            TargetPackBackground[i] = new JLabel(new ImageIcon("src/img/cards/empty_"+(i+1)+".png"));
             TargetPackBackground[i].setBounds(380+(120*i), 20, 100, 145);
             this.add(TargetPackBackground[i], 1, 0);
             final int tgpb = i;
