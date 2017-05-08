@@ -229,7 +229,7 @@ public class Game implements java.io.Serializable{
       try
       {
           FileOutputStream fileOut =
-                  new FileOutputStream("./saves/" + name);
+                  new FileOutputStream("./examples/" + name);
           ObjectOutputStream out = new ObjectOutputStream(fileOut);
           out.writeObject(this);
           out.close();
@@ -249,7 +249,7 @@ public class Game implements java.io.Serializable{
 
       Game loadedGame;
       try {
-          FileInputStream fileIn = new FileInputStream("./saves/" + name);
+          FileInputStream fileIn = new FileInputStream("./examples/" + name);
           ObjectInputStream in = new ObjectInputStream(fileIn);
           loadedGame = (Game) in.readObject();
           in.close();
