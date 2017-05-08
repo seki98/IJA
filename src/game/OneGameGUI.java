@@ -137,28 +137,7 @@ public class OneGameGUI extends JLayeredPane {
         iLoad.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // paint command icon LOAD
-                final JFileChooser fc = new JFileChooser();
-                //In response to a button click:
-                int returnVal = fc.showOpenDialog(new JFrame());
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    File file = fc.getSelectedFile();
-                    //This is where a real application would open the file.
-                    Game ng = new Game();
-                    ng = mygame.loadGame(file.getName());
-                    ng.showStacks();
-                    if(ng != null)
-                    {
-                        repaint();
-                        System.out.println("Opening: " + file.getName() + ".");
-                    }
-                } else {
-                    System.out.println("Open command cancelled by user.");
-                }
-                /**
-                 * TODO: Otvori popup okno na nahratie hry zo suboru
-                 * Nacita hru a reloadne JLayeredPane
-                 */
+                mygui.LoadOneGame();
             }
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -185,9 +164,6 @@ public class OneGameGUI extends JLayeredPane {
                 } else {
                     System.out.println("Save command cancelled by user.");
                 }
-                /**
-                 * TODO: Otvori popup okno na ulozenie hry
-                 */
             }
             @Override
             public void mouseEntered(MouseEvent e) {
