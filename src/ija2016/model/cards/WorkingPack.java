@@ -13,6 +13,11 @@ public class WorkingPack extends CardStackC {
         this.packnum = packnum;
     }
 
+    /**
+     *
+     * @param c - card to be deleted
+     * @return - return true if put was successful
+     */
     @Override
     public boolean put(Card c) {
         if(this.size() == 0)
@@ -31,6 +36,11 @@ public class WorkingPack extends CardStackC {
         return false;
     }
 
+    /**
+     * Pushes to stack without any worries
+     * @param c - card to be pushed
+     * @return true if successful
+     */
     public boolean forcePut(Card c)
     {
         this.top++;

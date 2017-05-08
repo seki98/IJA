@@ -4,10 +4,10 @@ import src.ija2016.model.cards.Card;
 import src.ija2016.model.cards.CardDeck;
 import src.ija2016.model.cards.CardStack;
 
-public class PullCardCommand implements UndoCommand{
-  /*
+  /**
    * Pull card from top of the Trash pack and place it on some working pack
    */
+public class PullCardCommand implements UndoCommand{
   protected WorkingPack workingPack;
   protected CardDeck pullStack;
   protected CardDeck trashStack;

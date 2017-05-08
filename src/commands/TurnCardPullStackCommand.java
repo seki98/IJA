@@ -3,11 +3,11 @@ import src.ija2016.model.cards.WorkingPack;
 import src.ija2016.model.cards.Card;
 import src.ija2016.model.cards.CardDeck;
 
+/**
+ * Take (not visible) card from top of the PullStack,
+ * set it visible and place on top of the trashStack
+ */
 public class TurnCardPullStackCommand implements UndoCommand{
-  /*
-   * Take (not visible) card from top of the PullStack,
-   * set it visible and place on top of the trashStack
-   */
   protected CardDeck pullStack;
   protected CardDeck trashStack;
   public TurnCardPullStackCommand(CardDeck pullStack,CardDeck trashStack)

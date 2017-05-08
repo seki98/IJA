@@ -4,11 +4,11 @@ import src.ija2016.model.cards.Card;
 import src.ija2016.model.cards.TargetPack;
 import src.ija2016.model.cards.CardDeck;
 
+/**
+ * Take card from top of the sourceStack(TrashPack/WorkingPack) and place it
+ * to the targetPack
+ */
 public class PutToTargetPackCommand implements UndoCommand{
-  /* 
-   * Take card from top of the sourceStack(TrashPack/WorkingPack) and place it
-   * to the targetPack
-   */
   protected TargetPack targetStack;
   protected CardDeck sourceStack;
   public PutToTargetPackCommand(CardDeck sourceStack,TargetPack targetStack)

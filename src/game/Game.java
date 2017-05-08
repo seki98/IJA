@@ -17,6 +17,9 @@ import src.commands.TurnCardPullStackCommand;
 import java.util.*;
 import src.game.Hint;
 
+/**
+ * This class represents game. Usually up to 4 objects of class Game can be created. Each game consists of targetpacks, workingpacks, pullpack and trashpack.
+ */
 public class Game implements java.io.Serializable{
     TargetPack targetPack[] = new TargetPack[4];
     WorkingPack workingPack[] = new WorkingPack[7];
@@ -28,6 +31,9 @@ public class Game implements java.io.Serializable{
     CardDeck factoryDeck;
     transient protected AbstractFactorySolitaire factory;
 
+    /**
+     * Constructor of the class
+     */
     public Game() {
        factory = new FactoryKlondike();
        cmdManager = new CommandManager();
@@ -52,6 +58,10 @@ public class Game implements java.io.Serializable{
 
     }
 
+    /**
+     * Do random turns based on Hint
+     * @param max - the number of Hint+commands to be processed
+     */
     public void doSomeTurns(int max)
     {
 
@@ -78,6 +88,11 @@ public class Game implements java.io.Serializable{
                 cmdManager.executeCommand(new TurnCardPullStackCommand(this.pullPack, this.trashPack));
         }
     }
+
+    /**
+     * This function gets the hint message, maps the stacks to the correct number
+     * @return - the message to be showed to the player
+     */
     public String getHintMessage()
     {
 
@@ -102,6 +117,10 @@ public class Game implements java.io.Serializable{
         return "thankyou";
     }
 
+    /**
+     * This method shuffles the new FactoryDeck with all cards
+     * @return shuffled factoryDeck
+     */
    public List<Card> shuffleCards()
    {
        List<Card> randomCards = new ArrayList();
@@ -112,6 +131,9 @@ public class Game implements java.io.Serializable{
        return randomCards;
    }
 
+    /**
+     * This function distributes the shuffled pack into particular packs
+     */
   public void spreadCardsToWorkingPack()
   {
       Random randomGenerator = new Random();
@@ -136,6 +158,9 @@ public class Game implements java.io.Serializable{
       }
   }
 
+    /**
+     * This function spreads cards to the pullPack
+     */
   public void spreadCardsToPullPack()
   {
       while(true)
@@ -150,6 +175,10 @@ public class Game implements java.io.Serializable{
       }
   }
 
+    /**
+     * This function prints single stack to the console
+     * @param stack - stack to be printed to the console
+     */
   public void showStack (CardDeck stack)
   {
       System.out.println("--------"+stack.size()+"---------");
@@ -164,6 +193,10 @@ public class Game implements java.io.Serializable{
           }
       }
   }
+
+    /**
+     * This function calls showStack function to print all the stacks to the console
+     */
   public void showStacks()
   {
       System.out.println("WORKING PACKS");
@@ -186,6 +219,10 @@ public class Game implements java.io.Serializable{
       System.out.println("***END TRASH PACK");
   }
 
+    /**
+     * This function saves the current state of the game to a file in /save dir
+     * @param name-  name of the file to be created in the /save directory
+     */
   public void saveGame(String name)
   {
 
@@ -197,11 +234,16 @@ public class Game implements java.io.Serializable{
           out.writeObject(this);
           out.close();
           fileOut.close();
-          //System.out.printf("Serialized data is saved in /tmp/employee.ser");
       }catch(IOException e) {
           e.printStackTrace();
       }
   }
+
+    /**
+     * This function loads the game specified by the name parameter
+     * @param name - name of the file located in the /save directory
+     * @return - Game object
+     */
   public Game loadGame(String name)
   {
 
@@ -224,6 +266,10 @@ public class Game implements java.io.Serializable{
       return loadedGame;
   }
 
+    /**
+     * This method goes through all possible moves and tries to give the best possible option to the user
+     * @return - Hint object with needed info
+     */
   public Hint getHint()
   {
         //try to put to target pack

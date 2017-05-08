@@ -3,11 +3,11 @@ import src.ija2016.model.cards.WorkingPack;
 import src.ija2016.model.cards.Card;
 import src.ija2016.model.cards.CardStack;
 
+/**
+ * Take stack(beginning with "card") from sourceStack(workingStack) and place it
+ * on top of the targetStack(workingStack)
+ */
 public class PutStackCommand implements UndoCommand{
-  /*
-   * Take stack(beginning with "card") from sourceStack(workingStack) and place it
-   * on top of the targetStack(workingStack)
-   */
   protected WorkingPack sourceStack;
   protected WorkingPack targetStack;
   protected Card card;
