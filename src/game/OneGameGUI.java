@@ -359,9 +359,7 @@ public class OneGameGUI extends JLayeredPane {
 
         f.setLocation(x, y); //sets the location of the jframe
         f.setVisible(true);
-                        System.out.println("DONE");
                     }
-                    System.out.println(mygame.targetPack[1].size());
                     paintWorkingStacks();
                     paintTargetPack();
                     repaint();

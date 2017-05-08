@@ -238,7 +238,7 @@ public class Game implements java.io.Serializable{
           for(TargetPack tar : this.targetPack) {
               y++;
               if (this.cmdManager.hint(new PutToTargetPackCommand(src, tar))) {
-                  System.out.println("working to target pack:to target src:" + src.size() + " tar:" + tar.size() + "_______" + src.get() + "_________");
+                  //System.out.println("working to target pack:to target src:" + src.size() + " tar:" + tar.size() + "_______" + src.get() + "_________");
                   return new Hint(i, y, src.get(), 3);
               }
           }

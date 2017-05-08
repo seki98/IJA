@@ -10,7 +10,7 @@ public class CommandManager
 
     public boolean executeCommand(Command cmd)
     {
-        System.out.println("do something");
+        //System.out.println("do something");
         if(cmd.execute())
         {
             if (cmd instanceof UndoCommand)
@@ -20,7 +20,7 @@ public class CommandManager
             return true;
         }
 
-        System.out.println("CANT EXECUTE, BACKEND PROBLEM");
+        //System.out.println("CANT EXECUTE, BACKEND PROBLEM");
         return false;
     }
 
