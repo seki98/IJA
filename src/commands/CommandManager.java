@@ -17,7 +17,7 @@ public class CommandManager
         if(cmd.execute())
         {
 
-            System.out.println("EXECUTE");
+//            System.out.println("EXECUTE");
             return true;
         }
 

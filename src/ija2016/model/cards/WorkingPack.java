@@ -11,8 +11,6 @@ public class WorkingPack extends CardStackC {
     @Override
     public boolean put(Card c) {
         if(this.size() == 0)
-            return false;
-        if(this.size() == 1)
         {
             this.top++;
             deck[this.top] = c;

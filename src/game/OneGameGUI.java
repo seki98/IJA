@@ -106,6 +106,17 @@ public class OneGameGUI extends JLayeredPane {
         iHelp = new JLabel(new ImageIcon("src/img/help-me.png"));
         iHelp.setBounds(260, 90, 96, 96);
         add(iHelp, 1, 0);
+        iHelp.addMouseListener(new MouseAdapter() {
+           @Override
+           public void mouseClicked(MouseEvent e) {
+                JOptionPane.showMessageDialog(new JFrame(), mygame.getHintMessage());
+               }
+           @Override
+           public void mouseEntered(MouseEvent e) {
+               iHelp.setCursor(new Cursor(Cursor.HAND_CURSOR));
+           }
+       });
+
 
         // paint Undo
         iUndo = new JLabel(new ImageIcon("src/img/undo.png"));

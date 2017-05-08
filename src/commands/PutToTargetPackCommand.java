@@ -21,13 +21,15 @@ public class PutToTargetPackCommand implements UndoCommand{
   {
     if(sourceStack.get() == null)
       return false;
-    if(targetStack.put(sourceStack.get()))
+    Card c =sourceStack.get();
+    if(targetStack.put(c))
     {
       sourceStack.pop();
       if(sourceStack.size() >= 1)
         sourceStack.get().turnFaceUp();
+      return true;
     }
-    return true;
+    return false;
   }
   public boolean hint()
   {

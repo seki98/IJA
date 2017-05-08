@@ -32,6 +32,7 @@ public class TurnCardPullStackCommand implements UndoCommand{
     else{
       Card c = pullStack.pop();
       c.turnFaceUp();
+      //no cards to be drawn, pull stack exhausted
       if(!trashStack.put(c))
         return false;
     }
