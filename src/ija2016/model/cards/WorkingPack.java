@@ -1,5 +1,8 @@
 package src.ija2016.model.cards;
 
+/**
+ * This class represents 7 working stacks which may contain from 0 up to 20 cards
+ */
 public class WorkingPack extends CardStackC {
     private int top_card;
     public int packnum;
