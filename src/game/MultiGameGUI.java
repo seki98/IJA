@@ -72,7 +72,7 @@ public class MultiGameGUI extends JLayeredPane {
 
         // paint TargetPacks background
         for(int i=0; i<4; i++){
-            TargetPackBackground[i] = new JLabel(new ImageIcon("src/img/cards-mini/empty_targetpack.png"));
+            TargetPackBackground[i] = new JLabel(new ImageIcon("lib/img/cards-mini/empty_"+(i+1)+".png"));
             TargetPackBackground[i].setBounds(190+(60*i), 10, 50, 72);
             this.add(TargetPackBackground[i], 1, 0);
             final int tgpb = i;
@@ -85,7 +85,7 @@ public class MultiGameGUI extends JLayeredPane {
         }
 
         // paint PullPack background
-        PullPackBackground = new JLabel(new ImageIcon("src/img/cards-mini/empty_workingpack.png"));
+        PullPackBackground = new JLabel(new ImageIcon("lib/img/cards-mini/empty_workingpack.png"));
         PullPackBackground.setBounds(10, 10, 50, 72);
         add(PullPackBackground, 1, 0);
         PullPackBackground.addMouseListener(new MouseAdapter() {
@@ -96,13 +96,13 @@ public class MultiGameGUI extends JLayeredPane {
         });
 
         // paint TrashPack background
-        TrashPackBackground = new JLabel(new ImageIcon("src/img/cards-mini/empty_workingpack.png"));
+        TrashPackBackground = new JLabel(new ImageIcon("lib/img/cards-mini/empty_workingpack.png"));
         TrashPackBackground.setBounds(70, 10, 50, 72);
         add(TrashPackBackground, 1, 0);
 
         // paint WorkingStacks background
         for(int i = 0; i<7;i++) {
-            WorkingStackBack[i] = new JLabel(new ImageIcon("src/img/cards-mini/empty_workingpack.png"));
+            WorkingStackBack[i] = new JLabel(new ImageIcon("lib/img/cards-mini/empty_workingpack.png"));
             WorkingStackBack[i].setBounds(10+(60*i), 100, 50, 72);
             add(WorkingStackBack[i], 1, 0);
             final int wsbi = i;
@@ -115,7 +115,7 @@ public class MultiGameGUI extends JLayeredPane {
         }
 
         // paint command icon NEW
-        iNew = new JLabel(new ImageIcon("src/img/mini/new.png"));
+        iNew = new JLabel(new ImageIcon("lib/img/mini/new.png"));
         iNew.setBounds(127, 10, 16, 16);
         add(iNew, 1, 0);
         iNew.addMouseListener(new MouseAdapter() {
@@ -130,7 +130,7 @@ public class MultiGameGUI extends JLayeredPane {
         });
 
         // paint command icon LOAD
-        iLoad = new JLabel(new ImageIcon("src/img/mini/load.png"));
+        iLoad = new JLabel(new ImageIcon("lib/img/mini/load.png"));
         iLoad.setBounds(147, 10, 16, 16);
         add(iLoad, 1, 0);
         iLoad.addMouseListener(new MouseAdapter() {
@@ -145,7 +145,7 @@ public class MultiGameGUI extends JLayeredPane {
         });
 
         // paint command icon SAVE
-        iSave = new JLabel(new ImageIcon("src/img/mini/save.png"));
+        iSave = new JLabel(new ImageIcon("lib/img/mini/save.png"));
         iSave.setBounds(167, 10, 16, 16);
         add(iSave, 1, 0);
         iSave.addMouseListener(new MouseAdapter() {
@@ -171,7 +171,7 @@ public class MultiGameGUI extends JLayeredPane {
         });
 
         // paint command icon RELOAD
-        iReload = new JLabel(new ImageIcon("src/img/mini/reload.png"));
+        iReload = new JLabel(new ImageIcon("lib/img/mini/reload.png"));
         iReload.setBounds(167, 30, 16, 16);
         add(iReload, 1, 0);
         iReload.addMouseListener(new MouseAdapter() {
@@ -187,7 +187,7 @@ public class MultiGameGUI extends JLayeredPane {
 
 
         // paint Minion
-        iHint = new JLabel(new ImageIcon("src/img/mini/hint.png"));
+        iHint = new JLabel(new ImageIcon("lib/img/mini/hint.png"));
         iHint.setBounds(130, 35, 32, 32);
         add(iHint, 1, 0);
         iHint.addMouseListener(new MouseAdapter() {
@@ -202,7 +202,7 @@ public class MultiGameGUI extends JLayeredPane {
         });
 
         // paint TRASH
-        iTrash = new JLabel(new ImageIcon("src/img/mini/trash.png"));
+        iTrash = new JLabel(new ImageIcon("lib/img/mini/trash.png"));
         iTrash.setBounds(167, 50, 16, 16);
         add(iTrash, 1, 0);
         iTrash.addMouseListener(new MouseAdapter() {
@@ -217,7 +217,7 @@ public class MultiGameGUI extends JLayeredPane {
         });
 
         // paint Undo
-        iUndo = new JLabel(new ImageIcon("src/img/mini/undo.png"));
+        iUndo = new JLabel(new ImageIcon("lib/img/mini/undo.png"));
         iUndo.setBounds(167, 70, 16, 16);
         add(iUndo, 1, 0);
         iUndo.addMouseListener(new MouseAdapter() {
@@ -237,7 +237,7 @@ public class MultiGameGUI extends JLayeredPane {
         });
 
         // paint UNSELECT
-        iUnselect = new JLabel(new ImageIcon("src/img/mini/unselect.png"));
+        iUnselect = new JLabel(new ImageIcon("lib/img/mini/unselect.png"));
         iUnselect.setBounds(135, 75, 16, 16);
         iUnselect.addMouseListener(new MouseAdapter() {
             @Override
@@ -349,7 +349,7 @@ public class MultiGameGUI extends JLayeredPane {
                 if(mygame.cmdManager.executeCommand(new PutToTargetPackCommand(mygame.workingPack[MovingWorkingPackPI],mygame.targetPack[i]))){
                     if(mygame.targetPack[0].size() == 13 && mygame.targetPack[1].size() == 13 &&
                             mygame.targetPack[2].size() == 13 && mygame.targetPack[3].size() == 13) {
-                        JLabel won = new JLabel(new ImageIcon("src/img/leo.jpg"));
+                        JLabel won = new JLabel(new ImageIcon("lib/img/leo.jpg"));
                         won.setBounds(0,0,860,660);
                         add(won,50,0);
                         won.addMouseListener(new MouseAdapter() {
@@ -362,7 +362,7 @@ public class MultiGameGUI extends JLayeredPane {
                         repaint();
                         System.out.println("DONE");
                     }
-                    
+
                     paintWorkingStacks();
                     paintTargetPack();
                     repaint();
@@ -443,7 +443,7 @@ public class MultiGameGUI extends JLayeredPane {
             pullStackCard = this.mygame.pullPack.get(i);
             if(pullStackCard == null) break;
 
-            PullPack[i] = new JLabel(new ImageIcon("src/img/cards-mini/"+pullStackCard.getFileName()));
+            PullPack[i] = new JLabel(new ImageIcon("lib/img/cards-mini/"+pullStackCard.getFileName()));
             PullPack[i].setBounds(10, 10, 50, 72);
 
             add(PullPack[i], i+2, 0);
@@ -470,7 +470,7 @@ public class MultiGameGUI extends JLayeredPane {
             TrashStackCard = mygame.trashPack.get(i);
             if(TrashStackCard == null) return;
 
-            TrashPack[i] = new JLabel(new ImageIcon("src/img/cards-mini/"+TrashStackCard.getFileName()));
+            TrashPack[i] = new JLabel(new ImageIcon("lib/img/cards-mini/"+TrashStackCard.getFileName()));
             TrashPack[i].setBounds(70, 10, 50, 72);
             TrashPack[i].addMouseListener(new MouseAdapter() {
                 @Override
@@ -500,7 +500,7 @@ public class MultiGameGUI extends JLayeredPane {
                 c = mygame.targetPack[tgp].get(i);
                 if(c == null) return;
 
-                TargetPack[tgp][i] = new JLabel(new ImageIcon("src/img/cards-mini/"+c.getFileName()));
+                TargetPack[tgp][i] = new JLabel(new ImageIcon("lib/img/cards-mini/"+c.getFileName()));
                 TargetPack[tgp][i].setBounds(190+(60*tgp), 10, 50, 72);;
                 TargetPack[tgp][i].addMouseListener(new MouseAdapter() {
                     @Override
@@ -532,7 +532,7 @@ public class MultiGameGUI extends JLayeredPane {
                     break;
                 final int mi = i;
                 final int mj = j;
-                WorkingStack[i][j] = new JLabel(new ImageIcon("src/img/cards-mini/"+c[i][j].getFileName()));
+                WorkingStack[i][j] = new JLabel(new ImageIcon("lib/img/cards-mini/"+c[i][j].getFileName()));
                 WorkingStack[i][j].setName(c[i][j].toString());
                 WorkingStack[i][j].setBounds(10+(60*i), 100 + (12 * j), 50, 72);
                 add(WorkingStack[i][j], j+2, 0);

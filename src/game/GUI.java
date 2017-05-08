@@ -24,7 +24,7 @@ public class GUI extends JFrame {
     private int layerson = 0;
 
     // Background
-    private JLabel backgroundImage = new JLabel(new ImageIcon("src/img/background.jpg"));
+    private JLabel backgroundImage = new JLabel(new ImageIcon("lib/img/background.jpg"));
 
     public GUI() {
         setTitle("Solitaire Klondike");
@@ -32,7 +32,7 @@ public class GUI extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        ImageIcon webIcon = new ImageIcon("src/img/icon_big.png");
+        ImageIcon webIcon = new ImageIcon("lib/img/icon_big.png");
         setIconImage(webIcon.getImage());
 
         setLayout(new BorderLayout());
