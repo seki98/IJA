@@ -360,6 +360,19 @@ public class OneGameGUI extends JLayeredPane {
         if(this.MovingWorkingPack){
             if(isTopCardOfWorkingStack(MovingWorkingPackPI,MovingWorkingPackCI)){
                 if(mygame.cmdManager.executeCommand(new PutToTargetPackCommand(mygame.workingPack[MovingWorkingPackPI],mygame.targetPack[i]))){
+                    if(mygame.targetPack[0].size() == 13 &&
+                           mygame.targetPack[1].size() == 13 &&
+                           mygame.targetPack[2].size() == 13 &&
+                           mygame.targetPack[3].size() == 13
+                      )
+                    {
+                       JDialog dialog = new JDialog();
+                        dialog.setUndecorated(true);
+                        JLabel label = new JLabel( new ImageIcon("src/img/cards/mimon.jpg") );
+                        dialog.add( label );
+                        dialog.pack();
+                        dialog.setVisible(true);
+                    }
                     paintWorkingStacks();
                     paintTargetPack();
                     repaint();
