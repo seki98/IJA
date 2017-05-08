@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 
 public class OneGameGUI extends JLayeredPane {
 
@@ -68,7 +69,7 @@ public class OneGameGUI extends JLayeredPane {
 
         // paint TargetPacks background
         for(int i=0; i<4; i++){
-            TargetPackBackground[i] = new JLabel(new ImageIcon("src/img/cards/empty_targetpack.png"));
+            TargetPackBackground[i] = new JLabel(new ImageIcon("src/img/cards/empty_"+(i+1)+".png"));
             TargetPackBackground[i].setBounds(380+(120*i), 20, 100, 145);
             this.add(TargetPackBackground[i], 1, 0);
             final int tgpb = i;
@@ -130,13 +131,30 @@ public class OneGameGUI extends JLayeredPane {
             }
         });
 
-        // paint command icon LOAD
         iLoad = new JLabel(new ImageIcon("src/img/full/load.png"));
         iLoad.setBounds(295, 20, 32, 32);
         add(iLoad, 1, 0);
         iLoad.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                // paint command icon LOAD
+                final JFileChooser fc = new JFileChooser();
+                //In response to a button click:
+                int returnVal = fc.showOpenDialog(new JFrame());
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fc.getSelectedFile();
+                    //This is where a real application would open the file.
+                    Game ng = new Game();
+                    ng = mygame.loadGame(file.getName());
+                    ng.showStacks();
+                    if(ng != null)
+                    {
+                        repaint();
+                        System.out.println("Opening: " + file.getName() + ".");
+                    }
+                } else {
+                    System.out.println("Open command cancelled by user.");
+                }
                 /**
                  * TODO: Otvori popup okno na nahratie hry zo suboru
                  * Nacita hru a reloadne JLayeredPane
@@ -155,6 +173,18 @@ public class OneGameGUI extends JLayeredPane {
         iSave.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                // paint command icon LOAD
+                final JFileChooser fc = new JFileChooser();
+                //In response to a button click:
+                int returnVal = fc.showOpenDialog(new JFrame());
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fc.getSelectedFile();
+                    //This is where a real application would open the file.
+                    System.out.println("Saving to: " + file.getName() + ".");
+                    mygame.saveGame(file.getName());
+                } else {
+                    System.out.println("Save command cancelled by user.");
+                }
                 /**
                  * TODO: Otvori popup okno na ulozenie hry
                  */

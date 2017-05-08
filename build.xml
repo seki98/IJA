@@ -5,6 +5,8 @@
         <property name="src.dir" location="src" />
         <property name="doc.dir" location="doc" />
         <property name="build.dir" location="build" />
+        <property name="lib.dir" location="lib" />
+        <property name="saves.dir" location="saves" />
 
         <!-- Variables used for JUnit testin -->
         <property name="test.dir" location="src" />
@@ -33,6 +35,8 @@
         <target name="makedir">
                 <mkdir dir="${build.dir}" />
                 <mkdir dir="${test.report.dir}" />
+                <mkdir dir="${saves.dir}" />
+                <mkdir dir="${lib.dir}" />
         </target>
 
         <!-- Compiles the java code (including the usage of library for JUnit -->
