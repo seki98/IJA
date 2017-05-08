@@ -40,10 +40,10 @@
         </target>
 
         <!-- Compiles the java code (including the usage of library for JUnit -->
-        <target name="compile" depends="clean, makedir">
+        <target name="compile" depends="clean, makedir, doc">
                 <javac includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}" debug="on">
                 </javac>
-                <jar destfile="build/Main.jar" basedir="build">
+                <jar destfile="dest-client/ija-client.jar" basedir="build">
               <manifest>
                   <attribute name="Main-Class" value="src.game.Main"/>
               </manifest>
@@ -56,7 +56,7 @@
         <!-- Run the JUnit Tests -->
         <!-- Output is XML, could also be plain-->
         <target name="run" depends="compile" >
-          <java jar="build/Main.jar" fork="true"/>
+          <java jar="dest-client/ija-client.jar" fork="true"/>
         </target>
 
         <target name="main" depends="compile, run">
