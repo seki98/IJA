@@ -21,11 +21,11 @@ public class TargetPack extends CardStackC {
         else
             top_card = get().value();
 
+        System.out.println("CVALUE: "+c.value() + " TOPCARD: "+top_card+" colors:"+c.color()+this.color());
         if( (c.value() == (top_card+1)) && (c.color() == this.color) ){
             forcePut(c);
             return true;
         }
-        //System.out.println("CVALUE: "+c.value() + " TOPCARD: "+top_card+" colors:"+c.color()+this.color());
         return false;
     }
 }

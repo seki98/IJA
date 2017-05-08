@@ -31,7 +31,7 @@ public abstract class AbstractFactorySolitaire {
      * Vytváří objekt reprezentující pracovní pole pro karty.
      * @return Pracovní pole
      */
-    public abstract CardStack createWorkingPack();
+    public abstract CardStack createWorkingPack(int num);
 
     public abstract CardDeck createPullDeck();
 

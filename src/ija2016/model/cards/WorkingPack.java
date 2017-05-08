@@ -2,10 +2,12 @@ package src.ija2016.model.cards;
 
 public class WorkingPack extends CardStackC {
     private int top_card;
+    public int packnum;
     private Card.Color top_color;
 
-    public WorkingPack() {
-        super(13);
+    public WorkingPack(int packnum) {
+        super(52);
+        this.packnum = packnum;
     }
 
     @Override

@@ -10,14 +10,13 @@ public class CommandManager
 
     public boolean executeCommand(Command cmd)
     {
-        if (cmd instanceof UndoCommand)
-        {
-            commandStack.push(cmd);
-        }
+        System.out.println("do something");
         if(cmd.execute())
         {
-
-//            System.out.println("EXECUTE");
+            if (cmd instanceof UndoCommand)
+            {
+                commandStack.push(cmd);
+            }
             return true;
         }
 

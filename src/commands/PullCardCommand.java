@@ -34,16 +34,15 @@ public class PullCardCommand implements UndoCommand{
     if(trashStack.get() == null)
       return false;
     if(workingPack.put(trashStack.get()))
-        {
-          trashStack.put(workingPack.pop());
-          return true;
-        }
+    {
+      workingPack.pop();
+      return true;
+    }
     return false;
   }
 
   public void undo()
   {
-    trashStack.get().turnFaceDown();
     trashStack.put(workingPack.pop());
   }
 

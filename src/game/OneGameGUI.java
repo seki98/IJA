@@ -19,7 +19,7 @@ public class OneGameGUI extends JLayeredPane {
     private Game mygame;
 
     // Cards
-    private JLabel WorkingStack[][] = new JLabel[7][13];
+    private JLabel WorkingStack[][] = new JLabel[7][52];
     private JLabel WorkingStackBack[] = new JLabel[7];
     private JLabel PullPackBackground = new JLabel();
     private JLabel PullPack[] = new JLabel[24];
@@ -489,7 +489,7 @@ public class OneGameGUI extends JLayeredPane {
         for (int delete=0; delete<7; delete++)
             ShownWorkingPackCards[delete] = 0;
 
-        final Card c[][] = new Card[7][13];
+        final Card c[][] = new Card[7][52];
         for(int i=0; i<7; i++){
             for(int j=0;j<mygame.workingPack[i].size();j++){
                 c[i][j] = this.mygame.workingPack[i].get(j);

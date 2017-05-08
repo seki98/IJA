@@ -43,8 +43,8 @@ public class FactoryKlondike extends AbstractFactorySolitaire {
      * Vytváří objekt reprezentující pracovní pole pro karty.
      * @return Pracovní pole
      */
-    public CardStack createWorkingPack(){
-        return new WorkingPack();
+    public CardStack createWorkingPack(int num){
+        return new WorkingPack(num);
     }
     public CardDeck createPullDeck() {return new CardDeckC(52); }
 }
