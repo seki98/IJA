@@ -178,10 +178,7 @@ public class OneGameGUI extends JLayeredPane {
         iReload.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                /**
-                 * TODO!!! Reloadne HRU odznova
-                 * nejakym zpusobem vytvori novu hru a reloadne JLayeredPane
-                 */
+                mygui.ReLoadOneGame();
             }
             @Override
             public void mouseEntered(MouseEvent e) {
