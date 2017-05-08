@@ -42,6 +42,7 @@ public class OneGameGUI extends JLayeredPane {
 
     // Command icons
     private JLabel iHelp = new JLabel();
+    private JLabel iUndo = new JLabel();
 
     // Constructor
     public OneGameGUI(Game mygamein){
@@ -105,6 +106,26 @@ public class OneGameGUI extends JLayeredPane {
         iHelp = new JLabel(new ImageIcon("src/img/help-me.png"));
         iHelp.setBounds(260, 90, 96, 96);
         add(iHelp, 1, 0);
+
+        // paint Undo
+        iUndo = new JLabel(new ImageIcon("src/img/undo.png"));
+        iUndo.setBounds(250, 20, 48, 48);
+        add(iUndo, 1, 0);
+        iUndo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                mygame.cmdManager.undo();
+                paintPullPack();
+                paintTrashPack();
+                paintWorkingStacks();
+                paintTargetPack();
+                repaint();
+            }
+            @Override
+            public void mouseEntered(MouseEvent e){
+                iUndo.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+        });
 
         // paint all cards
         paintWorkingStacks();
