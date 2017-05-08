@@ -142,7 +142,10 @@ public class OneGameGUI extends JLayeredPane {
                 //In response to a button click:
                 int returnVal = fc.showOpenDialog(new JFrame());
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    File file = fc.getSelectedFile();
+                    String userDirLocation = System.getProperty("user.dir");
+                    File userDir = new File(userDirLocation);
+
+                    JFileChooser file = ();
                     //This is where a real application would open the file.
                     Game ng = new Game();
                     ng = mygame.loadGame(file.getName());
