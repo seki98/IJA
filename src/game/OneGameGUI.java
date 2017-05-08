@@ -244,25 +244,31 @@ public class OneGameGUI extends JLayeredPane {
     }
 
     private void EmptyPullPackClicked(){
-        if(mygame.cmdManager.executeCommand(new TurnCardPullStackCommand(mygame.pullPack,mygame.trashPack))){
-            paintPullPack();
-            paintTrashPack();
-            repaint();
+        if((!MovingWorkingPack)&&(!MovingTrashPackCard)){
+            if(mygame.cmdManager.executeCommand(new TurnCardPullStackCommand(mygame.pullPack,mygame.trashPack))){
+                paintPullPack();
+                paintTrashPack();
+                repaint();
+            }
+            else{
+                System.out.print("Karty z trashpacku neboli presunute do pullpacku!\n"); // TODO!
+            }
         }
-        else{
-            System.out.print("Karty z trashpacku neboli presunute do pullpacku!\n"); // TODO!
-        }
+        ClearOperations();
     }
 
     private void PullPackClicked(){
-        if(mygame.cmdManager.executeCommand(new TurnCardPullStackCommand(mygame.pullPack,mygame.trashPack))){
-            paintPullPack();
-            paintTrashPack();
-            repaint();
+        if((!MovingWorkingPack)&&(!MovingTrashPackCard)){
+            if(mygame.cmdManager.executeCommand(new TurnCardPullStackCommand(mygame.pullPack,mygame.trashPack))){
+                paintPullPack();
+                paintTrashPack();
+                repaint();
+            }
+            else{
+                System.out.print("Karta z pullpacku nebola presunuta do trashpacku!\n"); // TODO!
+            }
         }
-        else{
-            System.out.print("Karta z pullpacku nebola presunuta do trashpacku!\n"); // TODO!
-        }
+        ClearOperations();
     }
 
     // ========================================================
