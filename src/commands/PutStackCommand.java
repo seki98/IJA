@@ -49,7 +49,7 @@ public class PutStackCommand implements UndoCommand{
   public void undo()
   {
       Card c = sourceStack.get();
-      c.turnFaceDown();
+      //c.turnFaceDown();
     sourceStack.put(targetStack.pop(card));
   }
 
