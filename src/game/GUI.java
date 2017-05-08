@@ -126,18 +126,7 @@ public class GUI extends JFrame {
 
             mygames[freeplace] = new Game();
             multipleGamesPane[freeplace] = new MultiGameGUI(mygames[freeplace],this,freeplace);
-            if(freeplace == 0){
-                multipleGamesPane[0].setBounds(0,0,430,330);
-            }
-            else if (freeplace == 1){
-                multipleGamesPane[1].setBounds(430,0,430,330);
-            }
-            else if (freeplace == 2){
-                multipleGamesPane[2].setBounds(0,330,430,330);
-            }
-            else if (freeplace == 3){
-                multipleGamesPane[3].setBounds(430,330,430,330);
-            }
+            multipleGamePaneBounds(freeplace);
             backgroundPane.add(multipleGamesPane[freeplace], 1, 0);
             repaint();
 
@@ -187,23 +176,47 @@ public class GUI extends JFrame {
                 backgroundPane.remove(multipleGamesPane[layerid]);
                 mygames[layerid] = loadtmp;
                 multipleGamesPane[layerid] = new MultiGameGUI(mygames[layerid],this,layerid);
-                if(layerid == 0){
-                    multipleGamesPane[0].setBounds(0,0,430,330);
-                }
-                else if (layerid == 1){
-                    multipleGamesPane[1].setBounds(430,0,430,330);
-                }
-                else if (layerid == 2){
-                    multipleGamesPane[2].setBounds(0,330,430,330);
-                }
-                else if (layerid == 3){
-                    multipleGamesPane[3].setBounds(430,330,430,330);
-                }
+                multipleGamePaneBounds(layerid);
                 backgroundPane.add(multipleGamesPane[layerid], 1, 0);
                 repaint();
             }
         } else {
             System.out.println("Open command cancelled by user.");
+        }
+    }
+
+    public void ReLoadOneGame(){
+        oneGamePane.removeAll();
+        backgroundPane.remove(oneGamePane);
+        myonegame = new Game();
+        oneGamePane = new OneGameGUI(myonegame, this);
+        oneGamePane.setBounds(0,0,860,660);
+        backgroundPane.add(oneGamePane, 1, 0);
+        repaint();
+    }
+
+    public void ReLoadGame(int layerid){
+        multipleGamesPane[layerid].removeAll();
+        backgroundPane.remove(multipleGamesPane[layerid]);
+        mygames[layerid] = new Game();
+        multipleGamesPane[layerid] = new MultiGameGUI(mygames[layerid],this,layerid);
+        multipleGamePaneBounds(layerid);
+        backgroundPane.add(multipleGamesPane[layerid], 1, 0);
+        repaint();
+    }
+
+    private void multipleGamePaneBounds(int layerid){
+        if(layerid == 0){
+            multipleGamesPane[0].setBounds(0,0,430,330);
+        }
+        else if (layerid == 1){
+            multipleGamesPane[1].setBounds(430,0,430,330);
+        }
+        else if (layerid == 2){
+            multipleGamesPane[2].setBounds(0,330,430,330);
+        }
+        else if (layerid == 3){
+            multipleGamesPane[3].setBounds(430,330,430,330);
         }
     }
 }
