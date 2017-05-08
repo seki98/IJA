@@ -3,7 +3,7 @@
         <!-- Sets variables which can later be used. -->
         <!-- The value of a property is accessed via ${} -->
         <property name="src.dir" location="src" />
-
+        <property name="doc.dir" location="doc" />
         <property name="build.dir" location="build" />
 
         <!-- Variables used for JUnit testin -->
@@ -17,6 +17,11 @@
                 <pathelement location="${build.dir}" />
         </path>
 
+        <target name="doc" depends="makedir" description="generate documentation">
+        <javadoc sourcepath="${src.dir}" destdir="${doc.dir}">
+          <fileset dir="${src.dir}" includes="**/*.java"/> 
+        </javadoc>
+        </target>
 
         <!-- Deletes the existing build, docs and dist directory-->
         <target name="clean">
