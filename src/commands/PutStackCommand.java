@@ -31,15 +31,16 @@ public class PutStackCommand implements UndoCommand{
 
   public boolean execute()
   {
-      CardStack cs = sourceStack.pop(card);
-      if(!cs.get().isTurnedFaceUp())
+      if(!card.isTurnedFaceUp())
           return false;
+      CardStack cs = sourceStack.pop(card);
       if(cs == null)
           return false;
-      //System.out.println(card);
-      //System.out.println(targetStack.size());
-      if(!targetStack.put(cs))
+
+      if(!targetStack.put(cs)) {
+          sourceStack.put(cs);
           return false;
+      }
     if(sourceStack.size() >= 1)
         sourceStack.get().turnFaceUp();
     return true;

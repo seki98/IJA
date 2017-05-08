@@ -49,8 +49,12 @@ public class TurnCardPullStackCommand implements UndoCommand{
     return false;
   }
   public void undo()
-
+  //TODO
   {
+    if(trashStack.get() == null) {
+      trashStack.put(pullStack.pop());
+      trashStack.get().turnFaceUp();
+    }
     Card c = trashStack.pop();
     pullStack.put(c);
     c.turnFaceDown();

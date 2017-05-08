@@ -44,7 +44,7 @@ public class PullCardCommand implements UndoCommand{
   public void undo()
   {
     trashStack.get().turnFaceDown();
-      trashStack.put(workingPack.pop());
+    trashStack.put(workingPack.pop());
   }
 
 }
