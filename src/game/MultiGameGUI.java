@@ -347,6 +347,22 @@ public class MultiGameGUI extends JLayeredPane {
         if(this.MovingWorkingPack){
             if(isTopCardOfWorkingStack(MovingWorkingPackPI,MovingWorkingPackCI)){
                 if(mygame.cmdManager.executeCommand(new PutToTargetPackCommand(mygame.workingPack[MovingWorkingPackPI],mygame.targetPack[i]))){
+                    if(mygame.targetPack[0].size() == 13 && mygame.targetPack[1].size() == 13 &&
+                            mygame.targetPack[2].size() == 13 && mygame.targetPack[3].size() == 13) {
+                        JLabel won = new JLabel(new ImageIcon("src/img/leo.jpg"));
+                        won.setBounds(0,0,860,660);
+                        add(won,50,0);
+                        won.addMouseListener(new MouseAdapter() {
+                            @Override
+                            public void mouseClicked(MouseEvent e) {
+                                remove(won);
+                                repaint();
+                            }
+                        });
+                        repaint();
+                        System.out.println("DONE");
+                    }
+                    
                     paintWorkingStacks();
                     paintTargetPack();
                     repaint();
