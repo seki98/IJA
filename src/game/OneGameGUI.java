@@ -334,31 +334,19 @@ public class OneGameGUI extends JLayeredPane {
         if(this.MovingWorkingPack){
             if(isTopCardOfWorkingStack(MovingWorkingPackPI,MovingWorkingPackCI)){
                 if(mygame.cmdManager.executeCommand(new PutToTargetPackCommand(mygame.workingPack[MovingWorkingPackPI],mygame.targetPack[i]))){
-                    if(mygame.targetPack[0].size() == 13 &&
-                           mygame.targetPack[1].size() == 13 &&
-                           mygame.targetPack[2].size() == 13 &&
-                           mygame.targetPack[3].size() == 13
-                      )
-                    {
-                       JFrame f = new JFrame(); //creates jframe f
-
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //this is your screen size
-
-        f.setUndecorated(true); //removes the surrounding border
-
-        ImageIcon image = new ImageIcon("src/img/leo.jpg"); //imports the image
-
-        JLabel lbl = new JLabel(image); //puts the image into a jlabel
-
-        f.getContentPane().add(lbl); //puts label inside the jframe
-
-        f.setSize(image.getIconWidth(), image.getIconHeight()); //gets h and w of image and sets jframe to the size
-
-        int x = (screenSize.width - f.getSize().width)/2; //These two lines are the dimensions
-        int y = (screenSize.height - f.getSize().height)/2;//of the center of the screen
-
-        f.setLocation(x, y); //sets the location of the jframe
-        f.setVisible(true);
+                    if(mygame.targetPack[0].size() == 13 && mygame.targetPack[1].size() == 13 &&
+                            mygame.targetPack[2].size() == 13 && mygame.targetPack[3].size() == 13) {
+                        JLabel won = new JLabel(new ImageIcon("src/img/leo.jpg"));
+                        won.setBounds(0,0,860,660);
+                        add(won,50,0);
+                        won.addMouseListener(new MouseAdapter() {
+                            @Override
+                            public void mouseClicked(MouseEvent e) {
+                                remove(won);
+                                repaint();
+                            }
+                        });
+                        repaint();
                     }
                     paintWorkingStacks();
                     paintTargetPack();
