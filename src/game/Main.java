@@ -17,13 +17,12 @@ import src.game.Game;
 import java.io.*;
 
 public class Main {
+    private static GUI okno;
     public static void main(String[] args) {
 
-        Game newGame = new Game();
-
         EventQueue.invokeLater(() -> {
-            GUI ex = new GUI(newGame);
-            ex.setVisible(true);
+            okno = new GUI();
+            okno.setVisible(true);
         });
         /*javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {

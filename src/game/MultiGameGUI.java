@@ -17,9 +17,11 @@ import java.awt.event.MouseListener;
 public class MultiGameGUI extends JLayeredPane {
 
     private Game mygame;
+    private GUI mygui;
+    private int layerindex;
 
     // Cards
-    private JLabel WorkingStack[][] = new JLabel[7][13];
+    private JLabel WorkingStack[][] = new JLabel[7][21];
     private JLabel WorkingStackBack[] = new JLabel[7];
     private JLabel PullPackBackground = new JLabel();
     private JLabel PullPack[] = new JLabel[24];
@@ -39,19 +41,28 @@ public class MultiGameGUI extends JLayeredPane {
     private boolean MovingWorkingPack = false;
     private int MovingWorkingPackPI;
     private int MovingWorkingPackCI;
+    private boolean iSelected = false;
 
     // Command icons
-    private JLabel iHelp = new JLabel();
+    private JLabel iNew = new JLabel();
+    private JLabel iLoad = new JLabel();
+    private JLabel iSave = new JLabel();
+    private JLabel iReload = new JLabel();
+    private JLabel iTrash = new JLabel();
+    private JLabel iHint = new JLabel();
     private JLabel iUndo = new JLabel();
+    private JLabel iUnselect = new JLabel();
 
     // Constructor
-    public MultiGameGUI(Game mygamein){
+    public MultiGameGUI(Game mygamein, GUI mygui, int index){
         this.mygame = mygamein;
-        makeGameFrame();
+        this.mygui = mygui;
+        this.layerindex = index;
+        makeGameLayout();
     }
 
     // GUI JLayeredPane initialization
-    private void makeGameFrame(){
+    private void makeGameLayout(){
         // initialize number of shown WorkingStackCards and TargetPackCards
         for(int no=0; no<7; no++)
             ShownWorkingPackCards[no]=0;
@@ -102,14 +113,108 @@ public class MultiGameGUI extends JLayeredPane {
             });
         }
 
+        // paint command icon NEW
+        iNew = new JLabel(new ImageIcon("src/img/mini/new.png"));
+        iNew.setBounds(127, 10, 16, 16);
+        add(iNew, 1, 0);
+        iNew.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                mygui.AddAnotherGame();
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                iNew.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+        });
+
+        // paint command icon LOAD
+        iLoad = new JLabel(new ImageIcon("src/img/mini/load.png"));
+        iLoad.setBounds(147, 10, 16, 16);
+        add(iLoad, 1, 0);
+        iLoad.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                /**
+                 * TODO: Otvori popup okno na nahratie hry zo suboru
+                 * Nacita hru a reloadne JLayeredPane
+                 */
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                iLoad.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+        });
+
+        // paint command icon SAVE
+        iSave = new JLabel(new ImageIcon("src/img/mini/save.png"));
+        iSave.setBounds(167, 10, 16, 16);
+        add(iSave, 1, 0);
+        iSave.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                /**
+                 * TODO: Otvori popup okno na ulozenie hry
+                 */
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                iSave.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+        });
+
+        // paint command icon RELOAD
+        iReload = new JLabel(new ImageIcon("src/img/mini/reload.png"));
+        iReload.setBounds(167, 30, 16, 16);
+        add(iReload, 1, 0);
+        iReload.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                /**
+                 * TODO!!! Reloadne HRU odznova
+                 * nejakym zpusobem vytvori novu hru a reloadne JLayeredPane
+                 */
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                iReload.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+        });
+
+
         // paint Minion
-        iHelp = new JLabel(new ImageIcon("src/img/mini/help-me.png"));
-        iHelp.setBounds(130, 45, 48, 48);
-        add(iHelp, 1, 0);
+        iHint = new JLabel(new ImageIcon("src/img/mini/hint.png"));
+        iHint.setBounds(130, 35, 32, 32);
+        add(iHint, 1, 0);
+        iHint.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JOptionPane.showMessageDialog(new JFrame(), mygame.getHintMessage());
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                iHint.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+        });
+
+        // paint TRASH
+        iTrash = new JLabel(new ImageIcon("src/img/mini/trash.png"));
+        iTrash.setBounds(167, 50, 16, 16);
+        add(iTrash, 1, 0);
+        iTrash.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                mygui.CloseGame(layerindex);
+            }
+            @Override
+            public void mouseEntered(MouseEvent e){
+                iTrash.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+        });
 
         // paint Undo
         iUndo = new JLabel(new ImageIcon("src/img/mini/undo.png"));
-        iUndo.setBounds(125, 10, 48, 48);
+        iUndo.setBounds(167, 70, 16, 16);
         add(iUndo, 1, 0);
         iUndo.addMouseListener(new MouseAdapter() {
             @Override
@@ -127,6 +232,20 @@ public class MultiGameGUI extends JLayeredPane {
             }
         });
 
+        // paint UNSELECT
+        iUnselect = new JLabel(new ImageIcon("src/img/mini/unselect.png"));
+        iUnselect.setBounds(135, 75, 16, 16);
+        iUnselect.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                ClearOperations();
+            }
+            @Override
+            public void mouseEntered(MouseEvent e){
+                iUnselect.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+        });
+
         // paint all cards
         paintWorkingStacks();
         paintPullPack();
@@ -139,13 +258,16 @@ public class MultiGameGUI extends JLayeredPane {
     // ========================================================
 
     private void ClearOperations(){
+        if(iSelected){
+            remove(iUnselect);
+            iSelected = false;
+            repaint();
+        }
         this.MovingWorkingPack=false;
         this.MovingTrashPackCard=false;
     }
 
     private boolean isTopCardOfWorkingStack(int WorkingStackIndex, int cardindex){
-        System.out.print("->       top="+(mygame.workingPack[WorkingStackIndex].size()-1)+"\n");
-        System.out.print("-> cardindex="+cardindex+"\n");
         return (cardindex == (mygame.workingPack[WorkingStackIndex].size()-1));
     }
 
@@ -211,6 +333,9 @@ public class MultiGameGUI extends JLayeredPane {
             this.MovingWorkingPack = true;
             this.MovingWorkingPackPI = i;
             this.MovingWorkingPackCI = j;
+            add(iUnselect, 1, 0);
+            iSelected = true;
+            repaint();
         }
     }
 
@@ -244,24 +369,42 @@ public class MultiGameGUI extends JLayeredPane {
     }
 
     private void EmptyPullPackClicked(){
-        if(mygame.cmdManager.executeCommand(new TurnCardPullStackCommand(mygame.pullPack,mygame.trashPack))){
-            paintPullPack();
-            paintTrashPack();
-            repaint();
+        if((!MovingWorkingPack)&&(!MovingTrashPackCard)){
+            if(mygame.cmdManager.executeCommand(new TurnCardPullStackCommand(mygame.pullPack,mygame.trashPack))){
+                paintPullPack();
+                paintTrashPack();
+                repaint();
+            }
+            else{
+                System.out.print("Karty z trashpacku neboli presunute do pullpacku!\n"); // TODO!
+            }
         }
-        else{
-            System.out.print("Karty z trashpacku neboli presunute do pullpacku!\n"); // TODO!
-        }
+        ClearOperations();
     }
 
     private void PullPackClicked(){
-        if(mygame.cmdManager.executeCommand(new TurnCardPullStackCommand(mygame.pullPack,mygame.trashPack))){
-            paintPullPack();
-            paintTrashPack();
-            repaint();
+        if((!MovingWorkingPack)&&(!MovingTrashPackCard)){
+            if(mygame.cmdManager.executeCommand(new TurnCardPullStackCommand(mygame.pullPack,mygame.trashPack))){
+                paintPullPack();
+                paintTrashPack();
+                repaint();
+            }
+            else{
+                System.out.print("Karta z pullpacku nebola presunuta do trashpacku!\n"); // TODO!
+            }
+        }
+        ClearOperations();
+    }
+
+    private void TrashPackClicked(){
+        if((MovingTrashPackCard) || (MovingWorkingPack)){
+            ClearOperations();
         }
         else{
-            System.out.print("Karta z pullpacku nebola presunuta do trashpacku!\n"); // TODO!
+            MovingTrashPackCard = true;
+            add(iUnselect, 1, 0);
+            iSelected = true;
+            repaint();
         }
     }
 
@@ -275,7 +418,6 @@ public class MultiGameGUI extends JLayeredPane {
         }
         ShownPullPackCards = 0;
 
-        // System.out.print("\n== print pull pack ==\n");
         Card pullStackCard;
         for(int i = 0; i<mygame.pullPack.size();i++) {
             pullStackCard = this.mygame.pullPack.get(i);
@@ -292,12 +434,7 @@ public class MultiGameGUI extends JLayeredPane {
                     PullPackClicked();
                 }
             });
-            /*
-            System.out.print("-> card: "+pullStackCard.toString()+" ");
-            if(pullStackCard.isTurnedFaceUp())
-                System.out.print("FACE UP");
-            System.out.print("\n");
-            */
+
             ShownPullPackCards++;
         }
     }
@@ -318,17 +455,7 @@ public class MultiGameGUI extends JLayeredPane {
             TrashPack[i].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if(MovingTrashPackCard){
-                        MovingTrashPackCard = false;
-                        System.out.print("TrashPack Card unselected!\n");
-                    }
-                    else if(MovingWorkingPack){
-                        MovingWorkingPack = false;
-                        System.out.print("WorkingPack unselected!\n");
-                    }
-                    else{
-                        MovingTrashPackCard = true;
-                    }
+                    TrashPackClicked();
                 }
             });
             add(TrashPack[i], ShownTrashPackCards+2, 0);
@@ -377,7 +504,7 @@ public class MultiGameGUI extends JLayeredPane {
         for (int delete=0; delete<7; delete++)
             ShownWorkingPackCards[delete] = 0;
 
-        final Card c[][] = new Card[7][13];
+        final Card c[][] = new Card[7][21];
         for(int i=0; i<7; i++){
             for(int j=0;j<mygame.workingPack[i].size();j++){
                 c[i][j] = this.mygame.workingPack[i].get(j);

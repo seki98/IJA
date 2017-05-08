@@ -17,9 +17,10 @@ import java.awt.event.MouseListener;
 public class OneGameGUI extends JLayeredPane {
 
     private Game mygame;
+    private GUI mygui;
 
     // Cards
-    private JLabel WorkingStack[][] = new JLabel[7][52];
+    private JLabel WorkingStack[][] = new JLabel[7][21];
     private JLabel WorkingStackBack[] = new JLabel[7];
     private JLabel PullPackBackground = new JLabel();
     private JLabel PullPack[] = new JLabel[24];
@@ -51,13 +52,14 @@ public class OneGameGUI extends JLayeredPane {
     private JLabel iUnselect = new JLabel();
 
     // Constructor
-    public OneGameGUI(Game mygamein){
+    public OneGameGUI(Game mygamein, GUI mygui){
         this.mygame = mygamein;
-        makeGameFrame();
+        this.mygui = mygui;
+        makeGameLayout();
     }
 
     // GUI JLayeredPane initialization
-    private void makeGameFrame(){
+    private void makeGameLayout(){
         // initialize number of shown WorkingStackCards and TargetPackCards
         for(int no=0; no<7; no++)
             ShownWorkingPackCards[no]=0;
@@ -116,6 +118,7 @@ public class OneGameGUI extends JLayeredPane {
         iNew.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                mygui.FromOneToMultiple();
                 /**
                  * TODO: Zrusi OneGameGUI a otvori vytvori MultiGameGUI s 2 hrami
                  * Prva hra ostane aktualna, vedla nej sa nacita nova
@@ -194,7 +197,7 @@ public class OneGameGUI extends JLayeredPane {
            public void mouseEntered(MouseEvent e) {
                iHint.setCursor(new Cursor(Cursor.HAND_CURSOR));
            }
-       });
+        });
 
 
         // paint Undo
@@ -224,8 +227,6 @@ public class OneGameGUI extends JLayeredPane {
             @Override
             public void mouseClicked(MouseEvent e) {
                 ClearOperations();
-                remove(iUnselect);
-                repaint();
             }
             @Override
             public void mouseEntered(MouseEvent e){
@@ -346,7 +347,6 @@ public class OneGameGUI extends JLayeredPane {
             if(mygame.cmdManager.executeCommand(new PutToTargetPackCommand(mygame.trashPack,mygame.targetPack[i]))){
                 paintTrashPack();
                 paintTargetPack();
-                remove(iUnselect);
                 repaint();
             }
             else{
@@ -491,7 +491,7 @@ public class OneGameGUI extends JLayeredPane {
         for (int delete=0; delete<7; delete++)
             ShownWorkingPackCards[delete] = 0;
 
-        final Card c[][] = new Card[7][52];
+        final Card c[][] = new Card[7][21];
         for(int i=0; i<7; i++){
             for(int j=0;j<mygame.workingPack[i].size();j++){
                 c[i][j] = this.mygame.workingPack[i].get(j);
