@@ -141,8 +141,14 @@ public class OneGameGUI extends JLayeredPane {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = fc.getSelectedFile();
                     //This is where a real application would open the file.
-                    System.out.println("Opening: " + file.getName() + ".");
-                    mygame.loadGame(file.getName());
+                    Game ng = new Game();
+                    ng = mygame.loadGame(file.getName());
+                    ng.showStacks();
+                    if(ng != null)
+                    {
+                        repaint();
+                        System.out.println("Opening: " + file.getName() + ".");
+                    }
                 } else {
                     System.out.println("Open command cancelled by user.");
                 }
@@ -171,10 +177,10 @@ public class OneGameGUI extends JLayeredPane {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = fc.getSelectedFile();
                     //This is where a real application would open the file.
-                    System.out.println("Opening: " + file.getName() + ".");
+                    System.out.println("Saving to: " + file.getName() + ".");
                     mygame.saveGame(file.getName());
                 } else {
-                    System.out.println("Open command cancelled by user.");
+                    System.out.println("Save command cancelled by user.");
                 }
                 /**
                  * TODO: Otvori popup okno na ulozenie hry
