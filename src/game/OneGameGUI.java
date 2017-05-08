@@ -137,28 +137,7 @@ public class OneGameGUI extends JLayeredPane {
         iLoad.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // paint command icon LOAD
-                final JFileChooser fc = new JFileChooser();
-                //In response to a button click:
-                int returnVal = fc.showOpenDialog(new JFrame());
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    File file = fc.getSelectedFile();
-                    //This is where a real application would open the file.
-                    Game ng = new Game();
-                    ng = mygame.loadGame(file.getName());
-                    ng.showStacks();
-                    if(ng != null)
-                    {
-                        repaint();
-                        System.out.println("Opening: " + file.getName() + ".");
-                    }
-                } else {
-                    System.out.println("Open command cancelled by user.");
-                }
-                /**
-                 * TODO: Otvori popup okno na nahratie hry zo suboru
-                 * Nacita hru a reloadne JLayeredPane
-                 */
+                mygui.LoadOneGame();
             }
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -185,9 +164,6 @@ public class OneGameGUI extends JLayeredPane {
                 } else {
                     System.out.println("Save command cancelled by user.");
                 }
-                /**
-                 * TODO: Otvori popup okno na ulozenie hry
-                 */
             }
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -367,13 +343,28 @@ public class OneGameGUI extends JLayeredPane {
                            mygame.targetPack[3].size() == 13
                       )
                     {
-                       JDialog dialog = new JDialog();
-                        dialog.setUndecorated(true);
-                        JLabel label = new JLabel( new ImageIcon("src/img/cards/mimon.jpg") );
-                        dialog.add( label );
-                        dialog.pack();
-                        dialog.setVisible(true);
+                       JFrame f = new JFrame(); //creates jframe f
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //this is your screen size
+
+        f.setUndecorated(true); //removes the surrounding border
+
+        ImageIcon image = new ImageIcon("src/img/leo.jpg"); //imports the image
+
+        JLabel lbl = new JLabel(image); //puts the image into a jlabel
+
+        f.getContentPane().add(lbl); //puts label inside the jframe
+
+        f.setSize(image.getIconWidth(), image.getIconHeight()); //gets h and w of image and sets jframe to the size
+
+        int x = (screenSize.width - f.getSize().width)/2; //These two lines are the dimensions
+        int y = (screenSize.height - f.getSize().height)/2;//of the center of the screen
+
+        f.setLocation(x, y); //sets the location of the jframe
+        f.setVisible(true);
+                        System.out.println("DONE");
                     }
+                    System.out.println(mygame.targetPack[1].size());
                     paintWorkingStacks();
                     paintTargetPack();
                     repaint();

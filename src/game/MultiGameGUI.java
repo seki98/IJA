@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 
 public class MultiGameGUI extends JLayeredPane {
 
@@ -135,10 +136,7 @@ public class MultiGameGUI extends JLayeredPane {
         iLoad.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                /**
-                 * TODO: Otvori popup okno na nahratie hry zo suboru
-                 * Nacita hru a reloadne JLayeredPane
-                 */
+                mygui.LoadGame(layerindex);
             }
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -153,9 +151,18 @@ public class MultiGameGUI extends JLayeredPane {
         iSave.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                /**
-                 * TODO: Otvori popup okno na ulozenie hry
-                 */
+                // paint command icon LOAD
+                final JFileChooser fc = new JFileChooser();
+                //In response to a button click:
+                int returnVal = fc.showOpenDialog(new JFrame());
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fc.getSelectedFile();
+                    //This is where a real application would open the file.
+                    System.out.println("Saving to: " + file.getName() + ".");
+                    mygame.saveGame(file.getName());
+                } else {
+                    System.out.println("Save command cancelled by user.");
+                }
             }
             @Override
             public void mouseEntered(MouseEvent e) {
