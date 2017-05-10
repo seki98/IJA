@@ -42,11 +42,22 @@ public class PutStackCommand implements UndoCommand{
       if(!card.isTurnedFaceUp())
           return false;
       CardStack cs = sourceStack.pop(card);
-      if(cs == null)
+      if(cs == null) {
           return false;
+      }
 
       if(!targetStack.put(cs)) {
-          sourceStack.put(cs);
+          int i = 0;
+          while(true)
+          {
+
+              if(cs.get(i) == null)
+                  break;
+              sourceStack.forcePut(cs.get(i));
+              i++;
+          }
+          //if(!sourceStack.put(cs))
+             //System.out.println("Tu je ryza");
           return false;
       }
     if(sourceStack.size() >= 1)

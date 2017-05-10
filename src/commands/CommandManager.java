@@ -18,9 +18,10 @@ public class CommandManager
      */
     public boolean executeCommand(Command cmd)
     {
-        //System.out.println("do something");
         if(cmd.execute())
         {
+            System.out.println("do something");
+
             if (cmd instanceof UndoCommand)
             {
                 commandStack.push(cmd);
@@ -49,8 +50,10 @@ public class CommandManager
      */
     public void undo()
     {
+        System.out.println("wtf");
         if (!commandStack.empty())
         {
+           System.out.println("Skutok sa nestal");
             UndoCommand cmd = (UndoCommand)commandStack.pop();
             cmd.undo();
         }
